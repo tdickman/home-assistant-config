@@ -1,0 +1,97 @@
+default_view:
+  view: yes
+  entities:
+    - group.thermostat
+    - group.lights
+    - media_player.living_room_home
+    - media_player.toms
+    - group.light_control
+
+Light Control:
+  entities:
+    - light.bathroom
+    - light.bedroom
+    - light.living_room
+    - switch.fluxer
+
+Automations:
+  entities:
+    - automation.alarm
+    - automation.home
+    - automation.away
+    - automation.netflix__pause
+    - automation.netflix__play
+    - automation.bathroom_motion_on
+    - automation.bathroom_motion_off
+
+Climate:
+  view: yes
+  entities:
+    - group.thermostat
+    - group.dark_sky
+    - camera.radar
+
+Living Room:
+  entities:
+    - light.couch_1
+    - light.couch_2
+    - light.hanging_light_1
+    - light.hanging_light_2
+    - light.hanging_light_3
+
+Bedroom:
+  entities:
+    - light.bedroom_1
+    - light.bedroom_2
+    - light.bedroom_3
+
+Bathroom:
+  entities:
+    - light.bathroom_1
+    - light.bathroom_2
+    - light.bathroom_3
+    - light.bathroom_4
+
+People:
+  view: yes
+  entities:
+    - device_tracker.android890623178d4bcedd
+
+Lights:
+  view: yes
+  entities:
+    - group.living_room
+    - group.bedroom
+    - group.bathroom
+
+Dark Sky:
+  entities:
+    - sensor.dark_sky_nearest_storm_distance
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_humidity
+
+Thermostat:
+  entities:
+    - climate.hallway
+    - sensor.hallway_thermostat_humidity
+    - binary_sensor.hallway_thermostat_fan
+
+Other:
+  view: yes
+  entities:
+    - group.automations
+    - group.motion_sensor
+
+Motion Sensor:
+  entities:
+    - sensor.bathroom_motion_alarm_level_2_1
+    - sensor.bathroom_motion_alarm_type_2_0
+    - sensor.bathroom_motion_burglar_2_10
+    - sensor.bathroom_motion_emergency_2_13
+    - sensor.bathroom_motion_luminance_2_3
+    - sensor.bathroom_motion_power_management_2_11
+    - sensor.bathroom_motion_relative_humidity_2_5
+    - sensor.bathroom_motion_temperature_2_1
+    - binary_sensor.bathroom_motion_sensor_2_0

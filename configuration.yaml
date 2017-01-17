@@ -1,0 +1,113 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 30.2966
+  longitude: -97.7663
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 186
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Chicago
+  customize:
+    group.living_room:
+      emulated_hue: true
+    group.bedroom:
+      emulated_hue: true
+    group.bathroom:
+      emulated_hue: true
+    light.living_room_2:
+      hidden: true
+
+# Enables the frontend
+frontend:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Weather Prediction
+sensor:
+  - platform: darksky
+    units: us
+    api_key: !secret darksky_key
+    monitored_conditions:
+      - summary
+      - nearest_storm_distance
+      - temperature
+      - precip_probability
+      - humidity
+
+# Text to speech
+tts:
+  platform: google
+
+nest:
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
+
+device_tracker:
+  - platform: tomato
+    host: 192.168.1.1
+    username: admin
+    password: !secret tomato_password
+    http_id: !secret tomato_http_id
+    consider_home: 180
+
+automation: !include automation.yaml
+group: !include group.yaml
+
+switch:
+  platform: flux
+  lights:
+    - light.couch_2
+    - light.hanging_light_1
+    - light.hanging_light_2
+    - light.hanging_light_3
+    - light.bedroom_1
+    - light.bedroom_2
+    - light.bedroom_3
+    - light.bedroom_4
+    - light.bathroom_1
+    - light.bathroom_2
+    - light.bathroom_3
+    - light.bathroom_4
+  name: Fluxer
+  start_time: '7:00'
+  stop_time: '23:00'
+  start_colortemp: 5000
+  sunset_colortemp: 5000
+  stop_colortemp: 1900
+  mode: mired
+
+camera:
+  platform: generic
+  still_image_url: https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=EWX&brand=wui&num=10&delay=25&type=N0R&frame=0&scale=1&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=0&lightning=0&smooth=0&rand=24742355&lat=0&lon=0&label=you
+  name: radar
+
+
+emulated_hue:
+  type: google_home
+  listen_port: 80
+  expose_by_default: false
