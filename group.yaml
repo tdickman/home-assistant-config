@@ -6,6 +6,15 @@ default_view:
     - media_player.living_room_home
     - media_player.toms
     - group.light_control
+    - alarm_control_panel.ha_alarm
+
+Sensors:
+  entities:
+    - binary_sensor.motion_sensor_158d00012dae15
+    - binary_sensor.motion_sensor_158d0001535b7c
+    - binary_sensor.switch_158d00013f9a76
+    - binary_sensor.door_window_sensor_158d00010673c9
+    - light.gateway_light_f0b429cbf3e0
 
 Light Control:
   entities:
@@ -16,13 +25,18 @@ Light Control:
 
 Automations:
   entities:
-    - automation.alarm
+    - automation.wakeup
     - automation.home
     - automation.away
     - automation.netflix__pause
     - automation.netflix__play
     - automation.bathroom_motion_on
     - automation.bathroom_motion_off
+    - automation.bedroom_motion_on
+    - automation.bedroom_motion_off
+    - automation.intruder
+    - automation.alarm_triggered_notification
+    - automation.alarm_armed_notification
 
 Climate:
   view: yes
@@ -82,16 +96,4 @@ Other:
   view: yes
   entities:
     - group.automations
-    - group.motion_sensor
-
-Motion Sensor:
-  entities:
-    - sensor.bathroom_motion_alarm_level_2_1
-    - sensor.bathroom_motion_alarm_type_2_0
-    - sensor.bathroom_motion_burglar_2_10
-    - sensor.bathroom_motion_emergency_2_13
-    - sensor.bathroom_motion_luminance_2_3
-    - sensor.bathroom_motion_power_management_2_11
-    - sensor.bathroom_motion_relative_humidity_2_5
-    - sensor.bathroom_motion_temperature_2_1
-    - binary_sensor.bathroom_motion_sensor_2_0
+    - group.sensors

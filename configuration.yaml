@@ -19,6 +19,20 @@ homeassistant:
       emulated_hue: true
     light.living_room_2:
       hidden: true
+    binary_sensor.motion_sensor_158d00012dae15:
+      friendly_name: Bathroom Motion Sensor
+    binary_sensor.motion_sensor_158d0001535b7c:
+      friendly_name: Bedroom Motion Sensor
+    binary_sensor.switch_158d00013f9a76:
+      friendly_name: Button 1
+    binary_sensor.door_window_sensor_158d00010673c9:
+      friendly_name: Door Sensor 1
+    light.gateway_light_f0b429cbf3e0:
+      friendly_name: Gateway Light
+
+nest:
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
 
 # Enables the frontend
 frontend:
@@ -27,7 +41,9 @@ http:
   # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
   # Uncomment this if you are using SSL or running in Docker etc
-  # base_url: example.duckdns.org:8123
+  # base_url: home.epiccontructions.com:8123
+  ssl_certificate: /etc/letsencrypt/live/home.epicconstructions.com/fullchain.pem
+  ssl_key: /etc/letsencrypt/live/home.epicconstructions.com/privkey.pem
 
 # Checks for available updates
 updater:
@@ -62,10 +78,6 @@ sensor:
 # Text to speech
 tts:
   platform: google
-
-nest:
-  client_id: !secret nest_client_id
-  client_secret: !secret nest_client_secret
 
 device_tracker:
   - platform: tomato
@@ -111,3 +123,20 @@ emulated_hue:
   type: google_home
   listen_port: 80
   expose_by_default: false
+
+xiaomi:
+  gateways:
+    - sid: !secret xiaomi_sid
+      key: !secret xiaomi_key
+
+notify:
+  - name: html5
+    platform: html5
+    gcm_api_key: !secret html5_gcm_api_key
+    gcm_sender_id: !secret html5_gcm_sender_id
+
+alarm_control_panel:
+  - name: ha_alarm
+    platform: manual
+    pending_time: 0
+    trigger_time: 1

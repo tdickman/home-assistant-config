@@ -9,6 +9,8 @@
       data:
         entity_id: climate.hallway
         away_mode: true
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.ha_alarm
 - alias: Home
   trigger:
     platform: state
@@ -21,6 +23,9 @@
       data:
         entity_id: climate.hallway
         away_mode: false
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.ha_alarm
+
 - alias: Netflix - Play
   trigger:
     platform: state
@@ -43,10 +48,11 @@
   action:
     service: light.turn_on
     entity_id: light.couch_2
-- alias: Alarm
+
+- alias: Wakeup
   trigger:
     platform: time
-    after: "07:40:00"
+    after: '07:40:00'
   condition:
   - condition: time
     weekday:
@@ -59,17 +65,23 @@
     entity_id: group.people
     state: home
   action:
-    service: light.turn_on
-    entity_id: group.bedroom
-    data:
-      transition: 1200
-      brightness: 254
-      color_temp: 230
+    - service: homeassistant.turn_off
+      entity_id: switch.fluxer
+    - service: light.turn_on
+      entity_id: group.bedroom
+      data:
+        transition: 1200
+        brightness: 254
+        color_temp: 230
+    - delay: 20:00
+    - service: homeassistant.turn_on
+      entity_id: switch.fluxer
+
 - alias: Bathroom Motion On
   trigger:
     - platform: state
-      entity_id: sensor.bathroom_motion_alarm_level_2_1
-      to: '255'
+      entity_id: binary_sensor.motion_sensor_158d00012dae15
+      to: 'on'
   condition:
     - condition: state
       entity_id: group.lights
@@ -80,8 +92,85 @@
 - alias: Bathroom Motion Off
   trigger:
     - platform: state
-      entity_id: sensor.bathroom_motion_alarm_level_2_1
-      to: '0'
+      entity_id: binary_sensor.motion_sensor_158d00012dae15
+      to: 'off'
   action:
     service: light.turn_off
     entity_id: group.bathroom
+
+- alias: Bedroom Motion On
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001535b7c
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: group.lights
+      state: 'on'
+  action:
+    service: light.turn_on
+    entity_id: group.bedroom
+- alias: Bedroom Motion Off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001535b7c
+      to: 'off'
+  condition:
+    - condition: or
+      conditions:
+      - condition: time
+        weekday:
+          - sat
+          - sun
+      - condition: time
+        after: '08:00:00'
+        before: '07:40:00'
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+  action:
+    service: light.turn_off
+    entity_id: group.bedroom
+
+- alias: Intruder
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001535b7c
+      state: 'on'
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d00012dae15
+      state: 'on'
+    - platform: state
+      entity_id: binary_sensor.door_window_sensor_158d00010673c9
+      state: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: armed_away
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.ha_alarm
+
+- alias: Alarm triggered notification
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: 'triggered'
+  action:
+    service: notify.html5
+    data:
+      message: 'Alarm triggered'
+      title: 'Alarm'
+- alias: Alarm armed notification
+  trigger:
+    platform: state
+    entity_id: alarm_control_panel.ha_alarm
+    to: 'armed_away'
+  action:
+    service: notify.html5
+    data:
+      message: 'Alarm armed'
+      title: 'Alarm'
