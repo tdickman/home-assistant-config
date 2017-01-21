@@ -1,10 +1,32 @@
+- alias: Transition Away
+  trigger:
+    platform: state
+    entity_id: group.people
+    state: 'not_home'
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.presence
+      option: away
+- alias: Transition Home
+  trigger:
+    platform: state
+    entity_id: group.people
+    state: 'home'
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.presence
+      option: home
+
 - alias: Away
   trigger:
     platform: state
-    entity_id: device_tracker.android890623178d4bcedd
-    state: 'not_home'
+    entity_id: input_select.presence
+    to: away
   action:
-    - service: light.turn_off
+    - service: homeassistant.turn_off
+      entity_id: group.lights
     - service: climate.set_away_mode
       data:
         entity_id: climate.hallway
@@ -14,8 +36,8 @@
 - alias: Home
   trigger:
     platform: state
-    entity_id: device_tracker.android890623178d4bcedd
-    state: 'home'
+    entity_id: input_select.presence
+    to: home
   action:
     - service: homeassistant.turn_on
       entity_id: group.living_room
@@ -62,11 +84,15 @@
       - thu
       - fri
   - condition: state
-    entity_id: group.people
+    entity_id: input_select.presence
     state: home
   action:
     - service: homeassistant.turn_off
       entity_id: switch.fluxer
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.house_mode
+        option: awake
     - service: light.turn_on
       entity_id: group.bedroom
       data:
@@ -77,26 +103,30 @@
     - service: homeassistant.turn_on
       entity_id: switch.fluxer
 
-- alias: Bathroom Motion On
+- alias: Bathroom Motion On Awake
   trigger:
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d00012dae15
       to: 'on'
   condition:
     - condition: state
-      entity_id: group.lights
-      state: 'on'
+      entity_id: input_select.house_mode
+      state: awake
   action:
-    service: light.turn_on
-    entity_id: group.bathroom
-- alias: Bathroom Motion Off
+    service: homeassistant.turn_on
+    entity_id: script.bathroom_timer_on_awake
+- alias: Bathroom Motion On Sleeping
   trigger:
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d00012dae15
-      to: 'off'
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_select.house_mode
+      state: sleeping
   action:
-    service: light.turn_off
-    entity_id: group.bathroom
+    service: homeassistant.turn_on
+    entity_id: script.bathroom_timer_on_sleeping
 
 - alias: Bedroom Motion On
   trigger:
@@ -105,35 +135,14 @@
       to: 'on'
   condition:
     - condition: state
-      entity_id: group.lights
-      state: 'on'
+      entity_id: input_select.house_mode
+      state: awake
+    - condition: time
+      before: '07:40:00'
+      after: '08:00:00'
   action:
-    service: light.turn_on
-    entity_id: group.bedroom
-- alias: Bedroom Motion Off
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.motion_sensor_158d0001535b7c
-      to: 'off'
-  condition:
-    - condition: or
-      conditions:
-      - condition: time
-        weekday:
-          - sat
-          - sun
-      - condition: time
-        after: '08:00:00'
-        before: '07:40:00'
-        weekday:
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri
-  action:
-    service: light.turn_off
-    entity_id: group.bedroom
+    service: homeassistant.turn_on
+    entity_id: script.bedroom_timer_on
 
 - alias: Intruder
   trigger:
@@ -174,3 +183,34 @@
     data:
       message: 'Alarm armed'
       title: 'Alarm'
+
+- alias: Toggle House Mode
+  trigger:
+    platform: state
+    entity_id: binary_sensor.switch_158d00013f9a76
+    to: 'on'
+  action:
+    service: input_select.select_next
+    data:
+      entity_id: input_select.house_mode
+
+- alias: Sleeping
+  trigger:
+    platform: state
+    entity_id: input_select.house_mode
+    to: sleeping
+  action:
+    - service: homeassistant.turn_off
+      entity_id: group.lights
+    - service: homeassistant.turn_off
+      entity_id: switch.fluxer
+- alias: Awake
+  trigger:
+    platform: state
+    entity_id: input_select.house_mode
+    to: awake
+  action:
+    - service: homeassistant.turn_on
+      entity_id: group.living_room
+    - service: homeassistant.turn_on
+      entity_id: switch.fluxer

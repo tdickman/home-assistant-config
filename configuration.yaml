@@ -30,6 +30,11 @@ homeassistant:
     light.gateway_light_f0b429cbf3e0:
       friendly_name: Gateway Light
 
+xiaomi:
+  gateways:
+    - sid: !secret xiaomi_sid
+      key: !secret xiaomi_key
+
 nest:
   client_id: !secret nest_client_id
   client_secret: !secret nest_client_secret
@@ -124,11 +129,6 @@ emulated_hue:
   listen_port: 80
   expose_by_default: false
 
-xiaomi:
-  gateways:
-    - sid: !secret xiaomi_sid
-      key: !secret xiaomi_key
-
 notify:
   - name: html5
     platform: html5
@@ -140,3 +140,17 @@ alarm_control_panel:
     platform: manual
     pending_time: 0
     trigger_time: 1
+
+script: !include script.yaml
+
+input_select:
+  house_mode:
+    name: House mode
+    options:
+      - awake
+      - sleeping
+  presence:
+    name: Presence
+    options:
+      - home
+      - away

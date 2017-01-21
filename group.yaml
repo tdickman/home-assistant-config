@@ -7,6 +7,12 @@ default_view:
     - media_player.toms
     - group.light_control
     - alarm_control_panel.ha_alarm
+    - group.states
+
+States:
+  entities:
+    - input_select.house_mode
+    - input_select.presence
 
 Sensors:
   entities:
@@ -26,6 +32,8 @@ Light Control:
 Automations:
   entities:
     - automation.wakeup
+    - automation.transition_home
+    - automation.transition_away
     - automation.home
     - automation.away
     - automation.netflix__pause
