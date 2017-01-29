@@ -30,10 +30,10 @@ bathroom_timer_on_sleeping:
         entity_id: script.bathroom_timer_off
 
 bathroom_timer_off:
-  alias: "Turn off bathroom light after 10 minutes"
+  alias: "Turn off bathroom light after 5 minutes"
   sequence:
     - delay:
-        minutes: 10
+        minutes: 5
     - service: light.turn_off
       data:
         entity_id: group.bathroom
@@ -54,10 +54,10 @@ bedroom_timer_on:
         entity_id: script.bedroom_timer_off
 
 bedroom_timer_off:
-  alias: "Turn off bedroom light after 10 minutes"
+  alias: "Turn off bedroom light after 5 minutes"
   sequence:
     - delay:
-        minutes: 10
+        minutes: 5
     - service: light.turn_off
       data:
         entity_id: group.bedroom

@@ -86,6 +86,9 @@
   - condition: state
     entity_id: input_select.presence
     state: home
+  - condition: state
+    entity_id: input_select.house_mode
+    state: sleeping
   action:
     - service: homeassistant.turn_off
       entity_id: switch.fluxer
@@ -173,16 +176,16 @@
     data:
       message: 'Alarm triggered'
       title: 'Alarm'
-- alias: Alarm armed notification
-  trigger:
-    platform: state
-    entity_id: alarm_control_panel.ha_alarm
-    to: 'armed_away'
-  action:
-    service: notify.html5
-    data:
-      message: 'Alarm armed'
-      title: 'Alarm'
+# - alias: Alarm armed notification
+#   trigger:
+#     platform: state
+#     entity_id: alarm_control_panel.ha_alarm
+#     to: 'armed_away'
+#   action:
+#     service: notify.html5
+#     data:
+#       message: 'Alarm armed'
+#       title: 'Alarm'
 
 - alias: Toggle House Mode
   trigger:
