@@ -34,9 +34,31 @@ bathroom_timer_off:
   sequence:
     - delay:
         minutes: 5
-    - service: light.turn_off
+    - service_template: > 
+        {% if (is_state('binary_sensor.motion_sensor_158d00012dae15', 'on'))  %}
+          script.turn_on
+        {% else %}
+          light.turn_off
+        {% endif %}
+      data_template:
+        entity_id: >
+          {% if (is_state('binary_sensor.motion_sensor_158d00012dae15', 'on'))  %}
+            script.bathroom_timer_off_restart
+          {% else %}
+            group.bathroom
+          {% endif %}
+
+bathroom_timer_off_restart:
+  alias: "Turn off bathroom light after 5 minutes (restart)"
+  sequence:
+    # Cancel current script
+    - service: script.turn_off
       data:
-        entity_id: group.bathroom
+        entity_id: script.bathroom_timer_off
+    # Set new timer
+    - service: script.turn_on
+      data:
+        entity_id: script.bathroom_timer_off
 
 bedroom_timer_on:
   alias: "Turn on bedroom light and set timer"
@@ -58,6 +80,28 @@ bedroom_timer_off:
   sequence:
     - delay:
         minutes: 5
-    - service: light.turn_off
+    - service_template: > 
+        {% if (is_state('binary_sensor.motion_sensor_158d0001535b7c', 'on'))  %}
+          script.turn_on
+        {% else %}
+          light.turn_off
+        {% endif %}
+      data_template:
+        entity_id: >
+          {% if (is_state('binary_sensor.motion_sensor_158d0001535b7c', 'on'))  %}
+            script.bedroom_timer_off_restart
+          {% else %}
+            group.bedroom
+          {% endif %}
+
+bedroom_timer_off_restart:
+  alias: "Turn off bedroom light after 5 minutes (restart)"
+  sequence:
+    # Cancel current script
+    - service: script.turn_off
       data:
-        entity_id: group.bedroom
+        entity_id: script.bedroom_timer_off
+    # Set new timer
+    - service: script.turn_on
+      data:
+        entity_id: script.bedroom_timer_off
