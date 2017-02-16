@@ -90,19 +90,20 @@
     entity_id: input_select.house_mode
     state: sleeping
   action:
-    - service: homeassistant.turn_off
-      entity_id: switch.fluxer
     - service: input_select.select_option
       data:
         entity_id: input_select.house_mode
         option: awake
+    - delay: '00:00:05'
+    - service: homeassistant.turn_off
+      entity_id: switch.fluxer
     - service: light.turn_on
       entity_id: group.bedroom
       data:
         transition: 1200
         brightness: 254
         color_temp: 230
-    - delay: 20:00
+    - delay: '00:20:00'
     - service: homeassistant.turn_on
       entity_id: switch.fluxer
 

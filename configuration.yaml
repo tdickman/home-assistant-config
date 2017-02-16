@@ -24,11 +24,39 @@ homeassistant:
     binary_sensor.motion_sensor_158d0001535b7c:
       friendly_name: Bedroom Motion Sensor
     binary_sensor.switch_158d00013f9a76:
-      friendly_name: Button 1
+      friendly_name: Button Bedroom
     binary_sensor.door_window_sensor_158d00010673c9:
-      friendly_name: Door Sensor 1
+      friendly_name: Front Door Sensor
     light.gateway_light_f0b429cbf3e0:
       friendly_name: Gateway Light
+    sensor.humidity_158d00011003cd:
+      friendly_name: Bathroom Humidity
+    sensor.temperature_158d00011003cd:
+      friendly_name: Bathroom Temperature
+    sensor.dark_sky_nearest_storm_distance:
+      friendly_name: Nearest Storm Distance
+    sensor.dark_sky_precip_probability:
+      friendly_name: Precip Probability
+    sensor.dark_sky_precip_probability_1:
+      friendly_name: Precip Probability (tomorrow)
+    sensor.dark_sky_minutely_summary:
+      friendly_name: Summary
+    sensor.dark_sky_hourly_summary:
+      friendly_name: Summary
+    sensor.dark_sky_daily_max_precip_intensity:
+      friendly_name: Max Precip / Hour
+    sensor.dark_sky_daily_max_precip_intensity_1:
+      friendly_name: Max Precip / Hour (tomorrow)
+    sensor.dark_sky_temperature:
+      friendly_name: Temperature
+    sensor.dark_sky_humidity:
+      friendly_name: Humidity
+
+light:
+  platform: hue
+
+media_player:
+  - platform: cast
 
 xiaomi:
   gateways:
@@ -73,12 +101,18 @@ sensor:
   - platform: darksky
     units: us
     api_key: !secret darksky_key
+    forecast:
+      - 1
+      - 2
     monitored_conditions:
       - summary
       - nearest_storm_distance
       - temperature
       - precip_probability
       - humidity
+      - minutely_summary
+      - hourly_summary
+      - precip_intensity_max
 
 # Text to speech
 tts:

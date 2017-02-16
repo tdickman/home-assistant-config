@@ -21,6 +21,8 @@ Sensors:
     - binary_sensor.switch_158d00013f9a76
     - binary_sensor.door_window_sensor_158d00010673c9
     - light.gateway_light_f0b429cbf3e0
+    - sensor.humidity_158d00011003cd
+    - sensor.temperature_158d00011003cd
 
 Light Control:
   entities:
@@ -88,11 +90,15 @@ Lights:
 
 Dark Sky:
   entities:
-    - sensor.dark_sky_nearest_storm_distance
-    - sensor.dark_sky_precip_probability
-    - sensor.dark_sky_summary
     - sensor.dark_sky_temperature
     - sensor.dark_sky_humidity
+    - sensor.dark_sky_minutely_summary
+    - sensor.dark_sky_hourly_summary
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_precip_probability_1
+    - sensor.dark_sky_daily_max_precip_intensity
+    - sensor.dark_sky_daily_max_precip_intensity_1
+    - sensor.dark_sky_nearest_storm_distance
 
 Thermostat:
   entities:
