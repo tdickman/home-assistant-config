@@ -111,7 +111,6 @@
   trigger:
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d00012dae15
-      to: 'on'
   condition:
     - condition: state
       entity_id: input_select.house_mode
