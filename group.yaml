@@ -8,6 +8,13 @@ default_view:
     - group.light_control
     - alarm_control_panel.ha_alarm
     - group.states
+    - group.transit_schedule
+
+Transit Schedule:
+  entities:
+    - sensor.home_to_work
+    - sensor.work_to_home
+    - sensor.work_to_airport
 
 States:
   entities:

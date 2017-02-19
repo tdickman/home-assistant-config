@@ -98,6 +98,17 @@ sun:
 
 # Weather Prediction
 sensor:
+  - platform: austin_bus_transport
+    departures:
+    - name: Home to work
+      route: 22
+      stopid: 4162
+    - name: Work to home
+      route: 21
+      stopid: 5599
+    - name: Work to airport
+      route: 100
+      stopid: 514
   - platform: darksky
     units: us
     api_key: !secret darksky_key
