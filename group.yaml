@@ -12,9 +12,11 @@ default_view:
 
 Transit Schedule:
   entities:
-    - sensor.home_to_work
+    - sensor.home_to_work_22
+    - sensor.home_to_work_663
     - sensor.work_to_home
     - sensor.work_to_airport
+    - sensor.gtfs_sensor
 
 States:
   entities:
@@ -41,6 +43,7 @@ Light Control:
 Automations:
   entities:
     - automation.wakeup
+    - automation.wakeup_and_run
     - automation.transition_home
     - automation.transition_away
     - automation.home
@@ -54,6 +57,7 @@ Automations:
     - automation.intruder
     - automation.alarm_triggered_notification
     - automation.alarm_armed_notification
+    - automation.display_state_change
 
 Climate:
   view: yes
@@ -118,3 +122,4 @@ Other:
   entities:
     - group.automations
     - group.sensors
+    - input_boolean.display_state

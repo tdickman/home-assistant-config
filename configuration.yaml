@@ -98,10 +98,15 @@ sun:
 
 # Weather Prediction
 sensor:
-  - platform: austin_bus_transport
+  - platform: gtfs_realtime
+    trip_update_url: 'https://data.texas.gov/download/rmk2-acnw/application%2foctet-stream'
+    vehicle_position_url: 'https://data.texas.gov/download/eiei-9rpf/application%2Foctet-stream'
     departures:
-    - name: Home to work
+    - name: Home to work (22)
       route: 22
+      stopid: 4162
+    - name: Home to work (663)
+      route: 663
       stopid: 4162
     - name: Work to home
       route: 21
@@ -198,3 +203,11 @@ input_select:
     options:
       - home
       - away
+
+input_boolean:
+  display_state:
+    name: Display State
+    initial: off
+
+shell_command:
+  enable_display: 'ssh tom@192.168.1.172 "export DISPLAY=:0; xset dpms force {{states.input_boolean.display_state.state}}"'

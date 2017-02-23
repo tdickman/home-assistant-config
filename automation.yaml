@@ -27,6 +27,9 @@
   action:
     - service: homeassistant.turn_off
       entity_id: group.lights
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.display_state
     - service: climate.set_away_mode
       data:
         entity_id: climate.hallway
@@ -70,6 +73,42 @@
   action:
     service: light.turn_on
     entity_id: light.couch_2
+
+- alias: Wakeup (and run)
+  trigger:
+    platform: time
+    after: '07:20:00'
+  condition:
+  - condition: time
+    weekday:
+      - tue
+      - thu
+  - condition: state
+    entity_id: input_select.presence
+    state: home
+  - condition: state
+    entity_id: input_select.house_mode
+    state: sleeping
+  - condition: numeric_state
+    entity_id: sensor.dark_sky_precip_probability
+    below: 10
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.house_mode
+        option: awake
+    - delay: '00:00:05'
+    - service: homeassistant.turn_off
+      entity_id: switch.fluxer
+    - service: light.turn_on
+      entity_id: group.bedroom
+      data:
+        transition: 1200
+        brightness: 254
+        color_temp: 230
+    - delay: '00:20:00'
+    - service: homeassistant.turn_on
+      entity_id: switch.fluxer
 
 - alias: Wakeup
   trigger:
@@ -217,3 +256,10 @@
       entity_id: group.living_room
     - service: homeassistant.turn_on
       entity_id: switch.fluxer
+
+- alias: Display State Change
+  trigger:
+    platform: state
+    entity_id: input_boolean.display_state
+  action:
+    service: shell_command.enable_display
