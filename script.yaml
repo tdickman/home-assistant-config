@@ -30,10 +30,10 @@ bathroom_timer_on_sleeping:
         entity_id: script.bathroom_timer_off
 
 bathroom_timer_off:
-  alias: "Turn off bathroom light after 5 minutes. Keep lights on if humidty exceeds thermostat humidty by 15%"
+  alias: "Turn off bathroom light after 4 minutes. Keep lights on if humidty exceeds thermostat humidty by 15%"
   sequence:
     - delay:
-        minutes: 5
+        minutes: 4
     - service_template: > 
         {% if (is_state('binary_sensor.motion_sensor_158d00012dae15', 'on')) or (states('sensor.humidity_158d00011003cd') | float) > (states('sensor.hallway_thermostat_humidity') | float + 20) %}
           script.turn_on

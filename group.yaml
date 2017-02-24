@@ -6,7 +6,6 @@ default_view:
     - media_player.living_room_home
     - media_player.toms
     - group.light_control
-    - alarm_control_panel.ha_alarm
     - group.states
     - group.transit_schedule
 
@@ -87,11 +86,6 @@ Bathroom:
     - light.bathroom_3
     - light.bathroom_4
 
-People:
-  view: yes
-  entities:
-    - device_tracker.android890623178d4bcedd
-
 Lights:
   view: yes
   entities:
@@ -123,3 +117,5 @@ Other:
     - group.automations
     - group.sensors
     - input_boolean.display_state
+    - device_tracker.android890623178d4bcedd
+    - alarm_control_panel.ha_alarm

@@ -148,8 +148,10 @@
 
 - alias: Bathroom Motion On Awake
   trigger:
-    - platform: state
-      entity_id: binary_sensor.motion_sensor_158d00012dae15
+    - platform: event
+      event_type: motion
+      event_data:
+        entity_id: binary_sensor.motion_sensor_158d00012dae15
   condition:
     - condition: state
       entity_id: input_select.house_mode
@@ -159,9 +161,10 @@
     entity_id: script.bathroom_timer_on_awake
 - alias: Bathroom Motion On Sleeping
   trigger:
-    - platform: state
-      entity_id: binary_sensor.motion_sensor_158d00012dae15
-      to: 'on'
+    - platform: event
+      event_type: motion
+      event_data:
+        entity_id: binary_sensor.motion_sensor_158d00012dae15
   condition:
     - condition: state
       entity_id: input_select.house_mode
@@ -172,15 +175,16 @@
 
 - alias: Bedroom Motion On
   trigger:
-    - platform: state
-      entity_id: binary_sensor.motion_sensor_158d0001535b7c
-      to: 'on'
+    - platform: event
+      event_type: motion
+      event_data:
+        entity_id: binary_sensor.motion_sensor_158d0001535b7c
   condition:
     - condition: state
       entity_id: input_select.house_mode
       state: awake
     - condition: time
-      before: '07:40:00'
+      before: '07:20:00'
       after: '08:00:00'
   action:
     service: homeassistant.turn_on
