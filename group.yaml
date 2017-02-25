@@ -86,6 +86,10 @@ Bathroom:
     - light.bathroom_3
     - light.bathroom_4
 
+People:
+  entities:
+    - device_tracker.android890623178d4bcedd
+
 Lights:
   view: yes
   entities:
