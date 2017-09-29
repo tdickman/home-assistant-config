@@ -1,1 +1,1 @@
-{"1": "group.living_room", "2": "group.bathroom", "3": "group.bedroom"}
+{"2": "group.bathroom", "5": "switch.tv_power", "1": "group.living_room", "3": "group.bedroom", "4": "input_boolean.display_state"}

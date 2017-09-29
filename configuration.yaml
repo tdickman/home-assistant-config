@@ -11,12 +11,18 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/Chicago
   customize:
+    switch.tv_power:
+      emulated_hue: true
+      emulated_hue_name: 'tv'
     group.living_room:
       emulated_hue: true
     group.bedroom:
       emulated_hue: true
     group.bathroom:
       emulated_hue: true
+    input_boolean.display_state:
+      emulated_hue: true
+      emulated_hue_name: 'display'
     light.living_room_2:
       hidden: true
     binary_sensor.motion_sensor_158d00012dae15:
@@ -33,29 +39,37 @@ homeassistant:
       friendly_name: Bathroom Humidity
     sensor.temperature_158d00011003cd:
       friendly_name: Bathroom Temperature
+    sensor.humidity_158d000159f9f2:
+      friendly_name: Deck Humidity
+    sensor.temperature_158d000159f9f2:
+      friendly_name: Deck Temperature
     sensor.dark_sky_nearest_storm_distance:
       friendly_name: Nearest Storm Distance
     sensor.dark_sky_precip_probability:
-      friendly_name: Precip Probability
-    sensor.dark_sky_precip_probability_1:
-      friendly_name: Precip Probability (tomorrow)
+      friendly_name: Chance of Precipitation
     sensor.dark_sky_minutely_summary:
-      friendly_name: Summary
+      friendly_name: Forecast
     sensor.dark_sky_hourly_summary:
-      friendly_name: Summary
-    sensor.dark_sky_daily_max_precip_intensity:
-      friendly_name: Max Precip / Hour
-    sensor.dark_sky_daily_max_precip_intensity_1:
-      friendly_name: Max Precip / Hour (tomorrow)
+      friendly_name: Forecast
     sensor.dark_sky_temperature:
       friendly_name: Temperature
+    sensor.dark_sky_daily_low_temperature:
+      friendly_name: Low
+    sensor.dark_sky_daily_high_temperature:
+      friendly_name: High
     sensor.dark_sky_humidity:
       friendly_name: Humidity
 
+usps:
+  username: !secret usps_username
+  password: !secret usps_password
+
 light:
   platform: hue
+  host: 192.168.1.12
 
 media_player:
+  - platform: cast
   - platform: cast
 
 xiaomi:
@@ -75,8 +89,8 @@ http:
   api_password: !secret http_password
   # Uncomment this if you are using SSL or running in Docker etc
   # base_url: home.epiccontructions.com:8123
-  ssl_certificate: /etc/letsencrypt/live/home.epicconstructions.com/fullchain.pem
-  ssl_key: /etc/letsencrypt/live/home.epicconstructions.com/privkey.pem
+  ssl_certificate: /etc/letsencrypt/live/home.epicconstructions.com-0001/fullchain.pem
+  ssl_key: /etc/letsencrypt/live/home.epicconstructions.com-0001/privkey.pem
 
 # Checks for available updates
 updater:
@@ -99,8 +113,8 @@ sun:
 # Weather Prediction
 sensor:
   - platform: gtfs_realtime
-    trip_update_url: 'https://data.texas.gov/download/rmk2-acnw/application%2foctet-stream'
-    vehicle_position_url: 'https://data.texas.gov/download/eiei-9rpf/application%2Foctet-stream'
+    trip_update_url: 'https://data.texas.gov/download/rmk2-acnw/application/octet-stream'
+    vehicle_position_url: 'https://data.texas.gov/download/eiei-9rpf/application/octet-stream'
     departures:
     - name: Home to work (22)
       route: 22
@@ -124,11 +138,19 @@ sensor:
       - summary
       - nearest_storm_distance
       - temperature
-      - precip_probability
       - humidity
+      - temperature_min
+      - temperature_max
+      - precip_probability
       - minutely_summary
       - hourly_summary
       - precip_intensity_max
+  - platform: ups
+    username: !secret ups_username
+    password: !secret ups_password
+  - platform: fedex
+    username: !secret fedex_username
+    password: !secret fedex_password
 
 # Text to speech
 tts:
@@ -146,32 +168,44 @@ automation: !include automation.yaml
 group: !include group.yaml
 
 switch:
-  platform: flux
-  lights:
-    - light.couch_2
-    - light.hanging_light_1
-    - light.hanging_light_2
-    - light.hanging_light_3
-    - light.bedroom_1
-    - light.bedroom_2
-    - light.bedroom_3
-    - light.bedroom_4
-    - light.bathroom_1
-    - light.bathroom_2
-    - light.bathroom_3
-    - light.bathroom_4
-  name: Fluxer
-  start_time: '7:00'
-  stop_time: '23:00'
-  start_colortemp: 5000
-  sunset_colortemp: 5000
-  stop_colortemp: 1900
-  mode: mired
+  - platform: flux
+    lights:
+      - light.couch_2
+      - light.hanging_light_1
+      - light.hanging_light_2
+      - light.hanging_light_3
+      - light.bedroom_1
+      - light.bedroom_2
+      - light.bedroom_3
+      - light.bedroom_4
+      - light.bathroom_1
+      - light.bathroom_2
+      - light.bathroom_3
+      - light.bathroom_4
+    name: Fluxer
+    start_time: '7:00'
+    stop_time: '23:00'
+    start_colortemp: 5000
+    sunset_colortemp: 5000
+    stop_colortemp: 1900
+    mode: mired
+  - platform: broadlink
+    host: 192.168.1.21
+    mac: 'B4:43:0D:FC:17:3A'
+    switches:
+      tv_on:
+        friendly_name: 'TV Power'
+        command_on: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
+        command_off: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
 
 camera:
   - name: radar
     platform: generic
     still_image_url: https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=EWX&brand=wui&num=10&delay=25&type=N0R&frame=0&scale=1&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=0&lightning=0&smooth=0&rand=24742355&lat=0&lon=0&label=you
+    camera:
+  - platform: ffmpeg
+    name: home
+    input: -rtsp_transport tcp -i rtsp://192.168.1.121:554/ch0.h264
 
 emulated_hue:
   type: google_home
@@ -210,4 +244,4 @@ input_boolean:
     initial: off
 
 shell_command:
-  enable_display: 'ssh tom@192.168.1.172 "export DISPLAY=:0; xset dpms force {{states.input_boolean.display_state.state}}"'
+  enable_display: 'ssh tom@192.168.1.41 "export DISPLAY=:0; xset dpms force {{states.input_boolean.display_state.state}}"'

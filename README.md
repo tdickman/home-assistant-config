@@ -1,4 +1,8 @@
 This is my home-assistant configuration.
 
-docker run -d --name="home-assistant" -v /home/tom/.homeassistant:/config -v /etc/localtime:/etc/localtime:ro -v /etc/letsencrypt:/etc/letsencrypt:ro -v /home/tom/.ssh:/root/.ssh:ro --net=host hass-dev
+docker run -d --restart=always --name="home-assistant" -v /home/tom/.homeassistant:/config -v /etc/localtime:/etc/localtime:ro -v /etc/letsencrypt:/etc/letsencrypt:ro --net=host hass-dev
 docker run -d -v /home/tom/.homeassistant/conf:/conf --name appdaemon appdaemon:latest
+
+# Cert Renewal
+
+sudo docker run -it --rm -p 80:80 --name certbot -v "/etc/letsencrypt:/etc/letsencrypt" -v "/var/lib/letsencrypt:/var/lib/letsencrypt"                 quay.io/letsencrypt/letsencrypt:latest certonly                 --standalone --standalone-supported-challenges http-01 --email tdickman@gmail.com -d home.epicconstructions.com

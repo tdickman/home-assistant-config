@@ -22,3 +22,5 @@ pyozw.sqlite
 !/.gitignore
 
 custom_components/
+*.pickle
+gtfs/

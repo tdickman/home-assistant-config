@@ -105,3 +105,17 @@ bedroom_timer_off_restart:
     - service: script.turn_on
       data:
         entity_id: script.bedroom_timer_off
+
+tv_volume_up:
+  sequence:
+    - service: broadlink.send_packet_192_168_1_193
+      data:
+        packet: 
+          - 'JgBYAAABKZIVERQ1FREUERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQSExIUNRQ2FBEUERQRFBIUNRU1FBEUERQ2FDYUNhQ1FAAFOAABKkgUAAxLAAEpSRQADQU='
+
+tv_volume_down:
+  sequence:
+    - service: broadlink.send_packet_192_168_1_193
+      data:
+        packet: 
+          - 'JgBYAAABKZMUERQ2FBEUERQRFBEUERQSFDUUEhQ1FDYUNhQ2FDYUERQ2FBEUERQ2FDYUERQRFBEUERQ2FDYUERQRFDYUNhQ1FAAFOAABKkgVAAxKAAEqSBQADQU='

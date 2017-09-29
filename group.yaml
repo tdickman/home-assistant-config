@@ -8,6 +8,19 @@ default_view:
     - group.light_control
     - group.states
     - group.transit_schedule
+    - group.weather
+    - group.packages
+
+Packages:
+  entities:
+    - sensor.ups
+    - sensor.fedex
+
+TV:
+  entities:
+    - switch.tv_power
+    - script.tv_volume_up
+    - script.tv_volume_down
 
 Transit Schedule:
   entities:
@@ -31,6 +44,8 @@ Sensors:
     - light.gateway_light_f0b429cbf3e0
     - sensor.humidity_158d00011003cd
     - sensor.temperature_158d00011003cd
+    - sensor.humidity_158d000159f9f2
+    - sensor.temperature_158d000159f9f2
 
 Light Control:
   entities:
@@ -62,8 +77,9 @@ Climate:
   view: yes
   entities:
     - group.thermostat
-    - group.dark_sky
+    - group.weather
     - camera.radar
+    - camera.home
 
 Living Room:
   entities:
@@ -88,7 +104,7 @@ Bathroom:
 
 People:
   entities:
-    - device_tracker.android890623178d4bcedd
+    - device_tracker.ac374351e011
 
 Lights:
   view: yes
@@ -97,17 +113,15 @@ Lights:
     - group.bedroom
     - group.bathroom
 
-Dark Sky:
+Weather:
   entities:
     - sensor.dark_sky_temperature
+    - sensor.dark_sky_daily_low_temperature
+    - sensor.dark_sky_daily_high_temperature
     - sensor.dark_sky_humidity
     - sensor.dark_sky_minutely_summary
     - sensor.dark_sky_hourly_summary
     - sensor.dark_sky_precip_probability
-    - sensor.dark_sky_precip_probability_1
-    - sensor.dark_sky_daily_max_precip_intensity
-    - sensor.dark_sky_daily_max_precip_intensity_1
-    - sensor.dark_sky_nearest_storm_distance
 
 Thermostat:
   entities:
@@ -121,5 +135,6 @@ Other:
     - group.automations
     - group.sensors
     - input_boolean.display_state
-    - device_tracker.android890623178d4bcedd
+    - device_tracker.ac374351e011
     - alarm_control_panel.ha_alarm
+    - group.tv

@@ -2,7 +2,7 @@
   trigger:
     platform: state
     entity_id: group.people
-    state: 'not_home'
+    to: 'not_home'
   action:
     service: input_select.select_option
     data:
@@ -12,7 +12,7 @@
   trigger:
     platform: state
     entity_id: group.people
-    state: 'home'
+    to: 'home'
   action:
     service: input_select.select_option
     data:
@@ -55,7 +55,7 @@
   trigger:
     platform: state
     entity_id: media_player.toms
-    state: 'playing'
+    to: 'playing'
   action:
     service: light.turn_off
     entity_id: light.couch_2
@@ -63,13 +63,13 @@
   trigger:
     - platform: state
       entity_id: media_player.toms
-      state: 'paused'
+      to: 'paused'
     - platform: state
       entity_id: media_player.toms
-      state: 'idle'
+      to: 'idle'
     - platform: state
       entity_id: media_player.toms
-      state: 'off'
+      to: 'off'
   action:
     service: light.turn_on
     entity_id: light.couch_2
@@ -194,13 +194,13 @@
   trigger:
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d0001535b7c
-      state: 'on'
+      to: 'on'
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d00012dae15
-      state: 'on'
+      to: 'on'
     - platform: state
       entity_id: binary_sensor.door_window_sensor_158d00010673c9
-      state: 'on'
+      to: 'on'
   condition:
     - condition: state
       entity_id: alarm_control_panel.ha_alarm
@@ -267,3 +267,29 @@
     entity_id: input_boolean.display_state
   action:
     service: shell_command.enable_display
+
+# - alias: Chromecast Turn TV On
+#   trigger:
+#     platform: state
+#     entity_id: media_player.toms
+#     from: 'off'
+#   condition:
+#   - condition: state
+#     entity_id: switch.tv_power
+#     state: 'off'
+#   action:
+#     - service: homeassistant.turn_on
+#       entity_id: switch.tv_power
+# 
+# - alias: Chromecast Turn TV Off Delayed
+#   trigger:
+#     platform: state
+#     entity_id: media_player.toms
+#     to: 'off'
+#   condition:
+#   - condition: state
+#     entity_id: switch.tv_power
+#     state: 'on'
+#   action:
+#     - service: homeassistant.turn_on
+#       entity_id: switch.tv_power
