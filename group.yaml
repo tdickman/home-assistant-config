@@ -104,7 +104,8 @@ Bathroom:
 
 People:
   entities:
-    - device_tracker.ac374351e011
+    - device_tracker.pixel_xl
+    - device_tracker.pixel_xl_bluetooth
 
 Lights:
   view: yes
@@ -135,6 +136,7 @@ Other:
     - group.automations
     - group.sensors
     - input_boolean.display_state
-    - device_tracker.ac374351e011
+    - device_tracker.pixel_xl
+    - device_tracker.pixel_xl_bluetooth
     - alarm_control_panel.ha_alarm
     - group.tv

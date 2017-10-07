@@ -163,6 +163,9 @@ device_tracker:
     password: !secret tomato_password
     http_id: !secret tomato_http_id
     consider_home: 180
+  - platform: bluetooth_tracker
+    interval_seconds: 5
+    consider_home: 180
 
 automation: !include automation.yaml
 group: !include group.yaml
