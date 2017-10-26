@@ -4,21 +4,21 @@ bathroom_timer_on_awake:
     # Cancel ev. old timers
     - service: script.turn_off
       data:
-         entity_id: script.bathroom_timer_off_awake
+         entity_id: script.bathroom_timer_off
     - service: light.turn_on
       data:
         entity_id: group.bathroom
     # Set new timer
     - service: script.turn_on
       data:
-        entity_id: script.bathroom_timer_off_awake
+        entity_id: script.bathroom_timer_off
 bathroom_timer_on_sleeping:
   alias: "Turn on bathroom light and set timer"
   sequence:
     # Cancel ev. old timers
     - service: script.turn_off
       data:
-         entity_id: script.bathroom_timer_off_sleeping
+         entity_id: script.bathroom_timer_off
     - service: light.turn_on
       entity_id: light.bathroom_1
       data:
@@ -27,9 +27,9 @@ bathroom_timer_on_sleeping:
     # Set new timer
     - service: script.turn_on
       data:
-        entity_id: script.bathroom_timer_off_sleeping
+        entity_id: script.bathroom_timer_off
 
-bathroom_timer_off_awake:
+bathroom_timer_off:
   alias: "Turn off bathroom light after 4 minutes. Keep lights on if humidty exceeds thermostat humidty by 15%"
   sequence:
     - delay:
@@ -45,55 +45,29 @@ bathroom_timer_off_awake:
       data_template:
         entity_id: >
           {% if (is_state('binary_sensor.motion_sensor_158d00012dae15', 'on')) or (states('sensor.humidity_158d00011003cd') | float) > (states('sensor.hallway_thermostat_humidity') | float + 20) %}
-            script.bathroom_timer_off_awake_restart
+            script.bathroom_timer_off_restart
           {% else %}
             group.bathroom
           {% endif %}
-    - service: homeassistant.turn_on
+    - service_template: >
+        {% if is_state('input_select.house_mode', 'awake') %}
+          homeassistant.turn_on
+        {% else %}
+          homeassistant.turn_off
+        {% endif %}
       entity_id: switch.fluxer
 
-bathroom_timer_off_sleeping:
-  alias: "Turn off bathroom light after 4 minutes. Keep lights on if humidty exceeds thermostat humidty by 15%"
-  sequence:
-    - delay:
-        minutes: 4
-    - service_template: > 
-        {% if (is_state('binary_sensor.motion_sensor_158d00012dae15', 'on')) or (states('sensor.humidity_158d00011003cd') | float) > (states('sensor.hallway_thermostat_humidity') | float + 20) %}
-          script.turn_on
-        {% else %}
-          light.turn_off
-        {% endif %}
-      data_template:
-        entity_id: >
-          {% if (is_state('binary_sensor.motion_sensor_158d00012dae15', 'on')) or (states('sensor.humidity_158d00011003cd') | float) > (states('sensor.hallway_thermostat_humidity') | float + 20) %}
-            script.bathroom_timer_off_sleeping_restart
-          {% else %}
-            group.bathroom
-          {% endif %}
-
-bathroom_timer_off_awake_restart:
+bathroom_timer_off_restart:
   alias: "Turn off bathroom light after 5 minutes (restart)"
   sequence:
     # Cancel current script
     - service: script.turn_off
       data:
-        entity_id: script.bathroom_timer_off_awake
+        entity_id: script.bathroom_timer_off
     # Set new timer
     - service: script.turn_on
       data:
-        entity_id: script.bathroom_timer_off_awake
-
-bathroom_timer_off_sleeping_restart:
-  alias: "Turn off bathroom light after 5 minutes (restart)"
-  sequence:
-    # Cancel current script
-    - service: script.turn_off
-      data:
-        entity_id: script.bathroom_timer_off_sleeping
-    # Set new timer
-    - service: script.turn_on
-      data:
-        entity_id: script.bathroom_timer_off_sleeping
+        entity_id: script.bathroom_timer_off
 
 bedroom_timer_on:
   alias: "Turn on bedroom light and set timer"

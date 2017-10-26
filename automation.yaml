@@ -219,6 +219,8 @@
     - condition: state
       entity_id: alarm_control_panel.ha_alarm
       state: armed_away
+      for:
+        hours: 3
   action:
     service: notify.html5
     data:
