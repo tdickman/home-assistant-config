@@ -1,15 +1,21 @@
 default_view:
   view: yes
   entities:
-    - group.thermostat
-    - group.lights
+    - group.transit_schedule
     - media_player.living_room_home
     - media_player.toms
-    - group.light_control
+    - group.crypto
     - group.states
-    - group.transit_schedule
     - group.weather
-    - group.packages
+    - group.thermostat
+    - group.light_control
+
+Light Control:
+  entities:
+    - light.bathroom
+    - light.bedroom
+    - light.living_room
+    - switch.fluxer
 
 Packages:
   entities:
@@ -21,14 +27,6 @@ TV:
     - switch.tv_power
     - script.tv_volume_up
     - script.tv_volume_down
-
-Transit Schedule:
-  entities:
-    - sensor.home_to_work_22
-    - sensor.home_to_work_663
-    - sensor.work_to_home
-    - sensor.work_to_airport
-    - sensor.gtfs_sensor
 
 States:
   entities:
@@ -46,13 +44,6 @@ Sensors:
     - sensor.temperature_158d00011003cd
     - sensor.humidity_158d000159f9f2
     - sensor.temperature_158d000159f9f2
-
-Light Control:
-  entities:
-    - light.bathroom
-    - light.bedroom
-    - light.living_room
-    - switch.fluxer
 
 Automations:
   entities:
@@ -72,6 +63,9 @@ Automations:
     - automation.alarm_triggered_notification
     - automation.alarm_armed_notification
     - automation.display_state_change
+    - automation.crypto_miner_low_hash_rate
+    - automation.crypto_price_alerts_bitcoin
+    - automation.crypto_price_alerts_ethereum
 
 Climate:
   view: yes
@@ -140,3 +134,16 @@ Other:
     - device_tracker.pixel_xl_bluetooth
     - alarm_control_panel.ha_alarm
     - group.tv
+
+Crypto:
+  entities:
+    - sensor.eth_mining_balance
+    - sensor.eth_mining_rate
+
+Transit Schedule:
+  entities:
+    - sensor.home_to_work_22
+    - sensor.home_to_work_663
+    - sensor.work_to_home
+    - sensor.work_to_airport
+    - sensor.gtfs_sensor

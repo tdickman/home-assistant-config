@@ -210,6 +210,21 @@
     service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.ha_alarm
 
+- alias: Crypto Miner Low Hash Rate
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.eth_mining_rate
+      below: 32
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: armed_away
+  action:
+    service: notify.html5
+    data:
+      message: 'Crypto miner hash rate is < 32, and house is currently set to away'
+      title: 'Low hash rate'
+
 - alias: Alarm triggered notification
   trigger:
     - platform: state
@@ -294,3 +309,33 @@
 #   action:
 #     - service: homeassistant.turn_on
 #       entity_id: switch.tv_power
+
+- alias: Crypto Price Alerts Bitcoin
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.bitcoin
+      above: 10000
+  action:
+    - service: notify.html5
+      data:
+        message: 'Bitcoin is above $10k!'
+        title: 'Bitcoin Price'
+    - service: light.turn_on
+      entity_id: light.gateway_light_f0b429cbf3e0
+      data:
+        rgb_color: [0, 255, 0]
+
+- alias: Crypto Price Alerts Ethereum
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.ethereum
+      above: 500
+  action:
+    - service: notify.html5
+      data:
+        message: 'Ethereum is above $500!'
+        title: 'Ethereum Price'
+    - service: light.turn_on
+      entity_id: light.gateway_light_f0b429cbf3e0
+      data:
+        rgb_color: [0, 255, 0]

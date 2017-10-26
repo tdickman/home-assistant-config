@@ -24,3 +24,4 @@ pyozw.sqlite
 custom_components/
 *.pickle
 gtfs/
+*.sqlite

@@ -112,6 +112,22 @@ sun:
 
 # Weather Prediction
 sensor:
+  - platform: rest
+    name: Eth Mining Rate
+    resource: !secret eth_mining_avghashrate_url
+    value_template: '{{ value_json.data.h3 | round(2) }}'
+    unit_of_measurement: 'MH/s'
+    scan_interval: 300
+  - platform: rest
+    name: Eth Mining Balance
+    resource: !secret eth_mining_balance_url
+    value_template: '{{ value_json.data.balance | round(4) }}'
+    unit_of_measurement: 'ETH'
+    scan_interval: 300
+  - platform: coinmarketcap
+    currency: bitcoin
+  - platform: coinmarketcap
+    currency: ethereum
   - platform: gtfs_realtime
     trip_update_url: 'https://data.texas.gov/download/rmk2-acnw/application/octet-stream'
     vehicle_position_url: 'https://data.texas.gov/download/eiei-9rpf/application/octet-stream'
