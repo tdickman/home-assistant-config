@@ -256,6 +256,12 @@ input_select:
     options:
       - home
       - away
+  motion_lights:
+    name: Motion Lights
+    options:
+      - 'on'
+      - 'night'
+      - 'off'
 
 input_boolean:
   display_state:

@@ -1,0 +1,7 @@
+AppDaemon:
+  logfile: STDOUT
+  errorfile: STDERR
+  threads: 10
+HASS:
+  ha_url: https://home.epicconstructions.com
+  ha_key: !secret api_key

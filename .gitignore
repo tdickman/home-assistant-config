@@ -13,6 +13,7 @@ lib
 deps
 tts
 secrets.yaml
+conf/secrets.yaml
 known_devices.yaml
 *.conf
 plex.conf
@@ -26,3 +27,4 @@ custom_components/
 *.pickle
 gtfs/
 *.sqlite
+__pycache__/

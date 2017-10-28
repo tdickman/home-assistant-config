@@ -32,6 +32,7 @@ States:
   entities:
     - input_select.house_mode
     - input_select.presence
+    - input_select.motion_lights
 
 Sensors:
   entities:
@@ -55,10 +56,9 @@ Automations:
     - automation.away
     - automation.netflix__pause
     - automation.netflix__play
-    - automation.bathroom_motion_on
-    - automation.bathroom_motion_off
+    - automation.bathroom_motion_on_awake
+    - automation.bathroom_motion_on_sleeping
     - automation.bedroom_motion_on
-    - automation.bedroom_motion_off
     - automation.intruder
     - automation.alarm_triggered_notification
     - automation.alarm_armed_notification

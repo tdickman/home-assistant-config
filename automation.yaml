@@ -36,6 +36,10 @@
         away_mode: true
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.ha_alarm
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.motion_lights
+        option: 'off'
 - alias: Home
   trigger:
     platform: state
@@ -50,6 +54,10 @@
         away_mode: false
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.ha_alarm
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.motion_lights
+        option: 'on'
 
 - alias: Netflix - Play
   trigger:
@@ -147,33 +155,6 @@
     - service: homeassistant.turn_on
       entity_id: switch.fluxer
 
-- alias: Bathroom Motion On Awake
-  trigger:
-    - platform: event
-      event_type: motion
-      event_data:
-        entity_id: binary_sensor.motion_sensor_158d00012dae15
-  condition:
-    - condition: state
-      entity_id: input_select.house_mode
-      state: awake
-  action:
-    service: homeassistant.turn_on
-    entity_id: script.bathroom_timer_on_awake
-- alias: Bathroom Motion On Sleeping
-  trigger:
-    - platform: event
-      event_type: motion
-      event_data:
-        entity_id: binary_sensor.motion_sensor_158d00012dae15
-  condition:
-    - condition: state
-      entity_id: input_select.house_mode
-      state: sleeping
-  action:
-    service: homeassistant.turn_on
-    entity_id: script.bathroom_timer_on_sleeping
-
 - alias: Bedroom Motion On
   trigger:
     - platform: event
@@ -258,6 +239,10 @@
       entity_id: group.lights
     - service: homeassistant.turn_off
       entity_id: switch.fluxer
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.motion_lights
+        option: 'night'
 - alias: Awake
   trigger:
     platform: state
@@ -268,6 +253,10 @@
       entity_id: group.living_room
     - service: homeassistant.turn_on
       entity_id: switch.fluxer
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.motion_lights
+        option: 'on'
 
 - alias: Display State Change
   trigger:
