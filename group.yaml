@@ -48,7 +48,6 @@ Sensors:
 
 Automations:
   entities:
-    - automation.wakeup
     - automation.wakeup_and_run
     - automation.transition_home
     - automation.transition_away
@@ -56,9 +55,6 @@ Automations:
     - automation.away
     - automation.netflix__pause
     - automation.netflix__play
-    - automation.bathroom_motion_on_awake
-    - automation.bathroom_motion_on_sleeping
-    - automation.bedroom_motion_on
     - automation.intruder
     - automation.alarm_triggered_notification
     - automation.alarm_armed_notification
