@@ -9,6 +9,7 @@ default_view:
     - group.weather
     - group.thermostat
     - group.light_control
+    - camera.usps
 
 Light Control:
   entities:

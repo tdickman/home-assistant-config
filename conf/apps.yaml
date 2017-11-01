@@ -41,5 +41,3 @@ Alarm:
       time: '08:00:00'
     - days: [saturday]
       time: '08:30:00'
-    - days: [friday]
-      time: '23:31:00'
