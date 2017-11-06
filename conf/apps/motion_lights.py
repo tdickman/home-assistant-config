@@ -19,4 +19,12 @@ class MotionLights(appapi.AppDaemon):
         self.handle = self.run_in(self.lights_off, self.args['stay_on_for'])
 
     def lights_off(self, kwawgs):
-        self.turn_off(self.args['lights'])
+        bathroom_humidity = float(self.get_state('sensor.humidity_158d00011003cd'))
+        hallway_humidity = float(self.get_state('sensor.hallway_thermostat_humidity'))
+        self.log('Bathroom humidity {}, hallway humidity {}'.format(bathroom_humidity, hallway_humidity))
+        # Renew timer if humidity is high in bathroom
+        if self.args['sensor'] == 'binary_sensor.motion_sensor_158d00012dae15' and bathroom_humidity > (hallway_humidity + 20):
+            self.log('High bathroom humidity, keeping lights on')
+            self.handle = self.run_in(self.lights_off, self.args['stay_on_for'])
+        else:
+            self.turn_off(self.args['lights'])

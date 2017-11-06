@@ -30,8 +30,8 @@ class Alarm(appapi.AppDaemon):
         self.complete_callbacks.append(handler)
 
         # Cancel complete callback if we see motion in the bathroom
-        handler = self.listen_event(self.complete_wakeup, 'motion', entity_id='binary_sensor.motion_sensor_158d00012dae15')
-        self.complete_callbacks.append(handler)
+        # handler = self.listen_event(self.complete_wakeup, 'motion', entity_id='binary_sensor.motion_sensor_158d00012dae15')
+        # self.complete_callbacks.append(handler)
         self.log('wakeup running')
 
     def complete_wakeup(self, *arg):
