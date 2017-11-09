@@ -52,9 +52,9 @@ homeassistant:
     sensor.dark_sky_humidity:
       friendly_name: Humidity
 
-usps:
-  username: !secret usps_username
-  password: !secret usps_password
+# usps:
+#   username: !secret usps_username
+#   password: !secret usps_password
 
 light:
   platform: hue
@@ -104,12 +104,76 @@ sun:
 
 # Weather Prediction
 sensor:
-  - platform: rest
-    name: Eth Mining Rate
-    resource: !secret eth_mining_avghashrate_url
-    value_template: '{{ value_json.data.h3 | round(2) }}'
+  - platform: tcp
+    name: GPU0 Eth Rate
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
     unit_of_measurement: 'MH/s'
-    scan_interval: 300
+    value_template: '{{ (float(value_json.result[3].split(";")[0] if value_json.result[3].split(";")[0] != "off" else 0) / 1000) | round(2) }}'
+  - platform: tcp
+    name: GPU1 Eth Rate
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'MH/s'
+    value_template: '{{ (float(value_json.result[3].split(";")[1] if value_json.result[3].split(";")[1] != "off" else 0) / 1000) | round(2) }}'
+  - platform: tcp
+    name: Eth Rate
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'MH/s'
+    value_template: '{{ ((float(value_json.result[3].split(";")[1] if value_json.result[3].split(";")[1] != "off" else 0) + float(value_json.result[3].split(";")[0] if value_json.result[3].split(";")[0] else 0)) / 1000) | round(2) }}'
+  - platform: tcp
+    name: GPU0 Sia Rate
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'MH/s'
+    value_template: '{{ (float(value_json.result[5].split(";")[0] if value_json.result[5].split(";")[0] != "off" else 0) / 1000) | round(2) }}'
+  - platform: tcp
+    name: GPU1 Sia Rate
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'MH/s'
+    value_template: '{{ (float(value_json.result[5].split(";")[1] if value_json.result[5].split(";")[1] != "off" else 0) / 1000) | round(2) }}'
+  - platform: tcp
+    name: Sia Rate
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'MH/s'
+    value_template: '{{ ((float(value_json.result[5].split(";")[1] if value_json.result[5].split(";")[1] != "off" else 0) + float(value_json.result[5].split(";")[0] if value_json.result[5].split(";")[0] else 0)) / 1000) | round(2) }}'
+  - platform: tcp
+    name: GPU0 Temperature
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'C'
+    value_template: '{{ float(value_json.result[6].split(";")[0]) }}'
+  - platform: tcp
+    name: GPU1 Temperature
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'C'
+    value_template: '{{ float(value_json.result[6].split(";")[2]) }}'
+  - platform: tcp
+    name: GPU0 Fan
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: '%'
+    value_template: '{{ float(value_json.result[6].split(";")[1]) }}'
+  - platform: tcp
+    name: GPU1 Fan
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: '%'
+    value_template: '{{ float(value_json.result[6].split(";")[3]) }}'
   - platform: rest
     name: Eth Mining Balance
     resource: !secret eth_mining_balance_url
@@ -210,8 +274,8 @@ switch:
         command_off: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
 
 camera:
-  - platform: usps
-    scan_interval: 5
+  # - platform: usps
+  #   scan_interval: 5
   - name: radar
     platform: generic
     still_image_url: https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=EWX&brand=wui&num=10&delay=25&type=N0R&frame=0&scale=1&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=0&lightning=0&smooth=0&rand=24742355&lat=0&lon=0&label=you

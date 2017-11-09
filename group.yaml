@@ -4,7 +4,7 @@ default_view:
     - group.transit_schedule
     - media_player.living_room_home
     - media_player.toms
-    - group.crypto
+    - group.crypto_summary
     - group.states
     - group.weather
     - group.thermostat
@@ -133,9 +133,31 @@ Other:
     - group.tv
 
 Crypto:
+  view: yes
+  entities:
+    - group.crypto_summary
+    - group.crypto_rates
+    - group.crypto_system
+
+Crypto Summary:
   entities:
     - sensor.eth_mining_balance
-    - sensor.eth_mining_rate
+    - sensor.eth_rate
+    - sensor.sia_rate
+
+Crypto Rates:
+  entities:
+    - sensor.gpu0_eth_rate
+    - sensor.gpu1_eth_rate
+    - sensor.gpu0_sia_rate
+    - sensor.gpu1_sia_rate
+
+Crypto System:
+  entities:
+    - sensor.gpu0_temperature
+    - sensor.gpu1_temperature
+    - sensor.gpu0_fan
+    - sensor.gpu1_fan
 
 Transit Schedule:
   entities:
