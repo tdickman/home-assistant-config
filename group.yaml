@@ -1,12 +1,11 @@
 default_view:
   view: yes
   entities:
-    - group.transit_schedule
     - media_player.living_room_home
     - media_player.toms
     - group.crypto_summary
     - group.states
-    - group.weather
+    - group.weather_summary
     - group.thermostat
     - group.light_control
     - camera.usps
@@ -120,6 +119,16 @@ Thermostat:
     - climate.hallway
     - sensor.hallway_thermostat_humidity
     - binary_sensor.hallway_thermostat_fan
+    - sensor.temperature_158d00011003cd
+    - sensor.humidity_158d00011003cd
+
+Weather Summary:
+  entities:
+    - sensor.temperature_158d000159f9f2
+    - sensor.humidity_158d000159f9f2
+    - sensor.dark_sky_daily_low_temperature
+    - sensor.dark_sky_daily_high_temperature
+    - sensor.dark_sky_precip_probability
 
 Other:
   view: yes
@@ -131,6 +140,7 @@ Other:
     - device_tracker.pixel_xl_bluetooth
     - alarm_control_panel.ha_alarm
     - group.tv
+    - group.transit_schedule
 
 Crypto:
   view: yes
@@ -142,6 +152,7 @@ Crypto:
 Crypto Summary:
   entities:
     - sensor.eth_mining_balance
+    - sensor.sia_mining_balance
     - sensor.eth_rate
     - sensor.sia_rate
 

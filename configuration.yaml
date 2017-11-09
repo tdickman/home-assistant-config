@@ -180,6 +180,12 @@ sensor:
     value_template: '{{ value_json.data.balance | round(4) }}'
     unit_of_measurement: 'ETH'
     scan_interval: 300
+  - platform: rest
+    name: Sia Mining Balance
+    resource: !secret sia_mining_balance_url
+    value_template: '{{ value_json.data.balance | round(2) }}'
+    unit_of_measurement: 'SIA'
+    scan_interval: 300
   - platform: coinmarketcap
     currency: bitcoin
   - platform: coinmarketcap
