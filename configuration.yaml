@@ -102,8 +102,53 @@ logbook:
 # Track the sun
 sun:
 
+switch:
+  - name: Desktop Switch
+    platform: tplink
+    host: 192.168.1.14
+  - platform: flux
+    lights:
+      - light.couch_2
+      - light.hanging_light_1
+      - light.hanging_light_2
+      - light.hanging_light_3
+      - light.bedroom_1
+      - light.bedroom_2
+      - light.bedroom_3
+      - light.bedroom_4
+      - light.bathroom_1
+      - light.bathroom_2
+      - light.bathroom_3
+      - light.bathroom_4
+    name: Fluxer
+    start_time: '7:00'
+    stop_time: '23:00'
+    start_colortemp: 5000
+    sunset_colortemp: 5000
+    stop_colortemp: 1900
+    mode: mired
+  - platform: broadlink
+    host: 192.168.1.21
+    mac: 'B4:43:0D:FC:17:3A'
+    switches:
+      tv_on:
+        friendly_name: 'TV Power'
+        command_on: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
+        command_off: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
+
+
 # Weather Prediction
 sensor:
+  - platform: template
+    sensors:
+      desktop_watts:
+        friendly_name: Desktop Watts
+        value_template: "{{ states.switch.desktop_switch.attributes.current_consumption.split(' ')[0] }}"
+        unit_of_measurement: 'Watts'
+      desktop_24h_cost:
+        friendly_name: 24h Cost
+        value_template: "{{ (((states.switch.desktop_switch.attributes.current_consumption.split(' ')[0] | float) / 1000) * 24 * 0.10) | round(2) }}"
+        unit_of_measurement: '$'
   - platform: tcp
     name: GPU0 Eth Rate
     host: localhost
@@ -119,12 +164,26 @@ sensor:
     unit_of_measurement: 'MH/s'
     value_template: '{{ (float(value_json.result[3].split(";")[1] if value_json.result[3].split(";")[1] != "off" else 0) / 1000) | round(2) }}'
   - platform: tcp
+    name: GPU2 Eth Rate
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'MH/s'
+    value_template: '{{ (float(value_json.result[3].split(";")[2] if value_json.result[3].split(";")[2] != "off" else 0) / 1000) | round(2) }}'
+  - platform: tcp
+    name: GPU3 Eth Rate
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'MH/s'
+    value_template: '{{ (float(value_json.result[3].split(";")[3] if value_json.result[3].split(";")[3] != "off" else 0) / 1000) | round(2) }}'
+  - platform: tcp
     name: Eth Rate
     host: localhost
     port: 3333
     payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
     unit_of_measurement: 'MH/s'
-    value_template: '{{ ((float(value_json.result[3].split(";")[1] if value_json.result[3].split(";")[1] != "off" else 0) + float(value_json.result[3].split(";")[0] if value_json.result[3].split(";")[0] else 0)) / 1000) | round(2) }}'
+    value_template: '{{ (float(value_json.result[2].split(";")[0] if value_json.result[2].split(";")[0] != "off" else 0) / 1000) | round(2) }}'
   - platform: tcp
     name: GPU0 Sia Rate
     host: localhost
@@ -140,12 +199,26 @@ sensor:
     unit_of_measurement: 'MH/s'
     value_template: '{{ (float(value_json.result[5].split(";")[1] if value_json.result[5].split(";")[1] != "off" else 0) / 1000) | round(2) }}'
   - platform: tcp
+    name: GPU2 Sia Rate
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'MH/s'
+    value_template: '{{ (float(value_json.result[5].split(";")[2] if value_json.result[5].split(";")[2] != "off" else 0) / 1000) | round(2) }}'
+  - platform: tcp
+    name: GPU3 Sia Rate
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'MH/s'
+    value_template: '{{ (float(value_json.result[5].split(";")[3] if value_json.result[5].split(";")[3] != "off" else 0) / 1000) | round(2) }}'
+  - platform: tcp
     name: Sia Rate
     host: localhost
     port: 3333
     payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
     unit_of_measurement: 'MH/s'
-    value_template: '{{ ((float(value_json.result[5].split(";")[1] if value_json.result[5].split(";")[1] != "off" else 0) + float(value_json.result[5].split(";")[0] if value_json.result[5].split(";")[0] else 0)) / 1000) | round(2) }}'
+    value_template: '{{ (float(value_json.result[4].split(";")[0] if value_json.result[4].split(";")[0] != "off" else 0) / 1000) | round(2) }}'
   - platform: tcp
     name: GPU0 Temperature
     host: localhost
@@ -161,6 +234,20 @@ sensor:
     unit_of_measurement: 'C'
     value_template: '{{ float(value_json.result[6].split(";")[2]) }}'
   - platform: tcp
+    name: GPU2 Temperature
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'C'
+    value_template: '{{ float(value_json.result[6].split(";")[4]) }}'
+  - platform: tcp
+    name: GPU3 Temperature
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: 'C'
+    value_template: '{{ float(value_json.result[6].split(";")[6]) }}'
+  - platform: tcp
     name: GPU0 Fan
     host: localhost
     port: 3333
@@ -174,6 +261,20 @@ sensor:
     payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
     unit_of_measurement: '%'
     value_template: '{{ float(value_json.result[6].split(";")[3]) }}'
+  - platform: tcp
+    name: GPU2 Fan
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: '%'
+    value_template: '{{ float(value_json.result[6].split(";")[5]) }}'
+  - platform: tcp
+    name: GPU3 Fan
+    host: localhost
+    port: 3333
+    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
+    unit_of_measurement: '%'
+    value_template: '{{ float(value_json.result[6].split(";")[7]) }}'
   - platform: rest
     name: Eth Mining Balance
     resource: !secret eth_mining_balance_url
@@ -190,22 +291,22 @@ sensor:
     currency: bitcoin
   - platform: coinmarketcap
     currency: ethereum
-  - platform: gtfs_realtime
-    trip_update_url: 'https://data.texas.gov/download/rmk2-acnw/application/octet-stream'
-    vehicle_position_url: 'https://data.texas.gov/download/eiei-9rpf/application/octet-stream'
-    departures:
-    - name: Home to work (22)
-      route: 22
-      stopid: 4162
-    - name: Home to work (663)
-      route: 663
-      stopid: 4162
-    - name: Work to home
-      route: 21
-      stopid: 5599
-    - name: Work to airport
-      route: 100
-      stopid: 514
+  # - platform: gtfs_realtime
+  # - trip_update_url: 'https://data.texas.gov/download/rmk2-acnw/application/octet-stream'
+  # - vehicle_position_url: 'https://data.texas.gov/download/eiei-9rpf/application/octet-stream'
+  # - departures:
+  # - - name: Home to work (22)
+  # -   route: 22
+  # -   stopid: 4162
+  # - - name: Home to work (663)
+  # -   route: 663
+  # -   stopid: 4162
+  # - - name: Work to home
+  # -   route: 21
+  # -   stopid: 5599
+  # - - name: Work to airport
+  # -   route: 100
+  # -   stopid: 514
   - platform: darksky
     units: us
     api_key: !secret darksky_key
@@ -247,37 +348,6 @@ device_tracker:
 
 automation: !include automation.yaml
 group: !include group.yaml
-
-switch:
-  - platform: flux
-    lights:
-      - light.couch_2
-      - light.hanging_light_1
-      - light.hanging_light_2
-      - light.hanging_light_3
-      - light.bedroom_1
-      - light.bedroom_2
-      - light.bedroom_3
-      - light.bedroom_4
-      - light.bathroom_1
-      - light.bathroom_2
-      - light.bathroom_3
-      - light.bathroom_4
-    name: Fluxer
-    start_time: '7:00'
-    stop_time: '23:00'
-    start_colortemp: 5000
-    sunset_colortemp: 5000
-    stop_colortemp: 1900
-    mode: mired
-  - platform: broadlink
-    host: 192.168.1.21
-    mac: 'B4:43:0D:FC:17:3A'
-    switches:
-      tv_on:
-        friendly_name: 'TV Power'
-        command_on: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
-        command_off: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
 
 camera:
   # - platform: usps

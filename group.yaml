@@ -148,6 +148,7 @@ Crypto:
     - group.crypto_summary
     - group.crypto_rates
     - group.crypto_system
+    - group.crypto_detailed
 
 Crypto Summary:
   entities:
@@ -160,15 +161,29 @@ Crypto Rates:
   entities:
     - sensor.gpu0_eth_rate
     - sensor.gpu1_eth_rate
+    - sensor.gpu2_eth_rate
+    - sensor.gpu3_eth_rate
     - sensor.gpu0_sia_rate
     - sensor.gpu1_sia_rate
+    - sensor.gpu2_sia_rate
+    - sensor.gpu3_sia_rate
 
 Crypto System:
   entities:
     - sensor.gpu0_temperature
     - sensor.gpu1_temperature
+    - sensor.gpu2_temperature
+    - sensor.gpu3_temperature
     - sensor.gpu0_fan
     - sensor.gpu1_fan
+    - sensor.gpu2_fan
+    - sensor.gpu3_fan
+
+Crypto Detailed:
+  entities:
+    - sensor.desktop_watts
+    - switch.desktop_switch
+    - sensor.desktop_24h_cost
 
 Transit Schedule:
   entities:
