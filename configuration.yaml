@@ -52,6 +52,10 @@ homeassistant:
     sensor.dark_sky_humidity:
       friendly_name: Humidity
 
+recorder:
+  purge_interval: 2
+  purge_keep_days: 365
+
 # usps:
 #   username: !secret usps_username
 #   password: !secret usps_password
@@ -139,6 +143,11 @@ switch:
 
 # Weather Prediction
 sensor:
+  - platform: statistics
+    name: 24 Mining Change
+    entity_id: sensor.eth_mining_balance
+    max_age:
+      days: 1
   - platform: template
     sensors:
       desktop_watts:
@@ -147,7 +156,7 @@ sensor:
         unit_of_measurement: 'Watts'
       desktop_24h_cost:
         friendly_name: 24h Cost
-        value_template: "{{ (((states.switch.desktop_switch.attributes.current_consumption.split(' ')[0] | float) / 1000) * 24 * 0.10) | round(2) }}"
+        value_template: "{{ ((((states.switch.desktop_switch.attributes.current_consumption.split(' ')[0] | float) - 60) / 1000) * 24 * 0.10) | round(2) }}"
         unit_of_measurement: '$'
   - platform: tcp
     name: GPU0 Eth Rate
