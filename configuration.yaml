@@ -51,6 +51,35 @@ homeassistant:
       friendly_name: High
     sensor.dark_sky_humidity:
       friendly_name: Humidity
+    sensor.desktop_month_profit:
+      icon: mdi:currency-usd
+    sensor.eth_mining_balance:
+      icon: mdi:currency-eth
+    sensor.sia_mining_balance:
+      icon: mdi:harddisk
+    sensor.eth_rate:
+      icon: mdi:pound
+    sensor.sia_rate:
+      icon: mdi:pound
+    sensor.desktop_watts:
+      icon: mdi:power-plug
+    sensor.desktop_24h_cost:
+      icon: mdi:currency-usd
+    sensor.desktop_month_cost:
+      icon: mdi:currency-usd
+    sensor.desktop_month_profit:
+      icon: mdi:currency-usd
+  customize_glob:
+    "*_eth_rate":
+      icon: mdi:pound
+    "*_sia_rate":
+      icon: mdi:pound
+    "*_temperature":
+      icon: mdi:thermometer
+    "*_fan":
+      icon: mdi:fan
+    "sensor.desktop_month_revenue*":
+      icon: mdi:currency-usd
 
 recorder:
   purge_interval: 2
@@ -143,13 +172,32 @@ switch:
 
 # Weather Prediction
 sensor:
-  - platform: statistics
-    name: 24 Mining Change
-    entity_id: sensor.eth_mining_balance
-    max_age:
-      days: 1
+  - platform: rest
+    name: Desktop Month Revenue Eth
+    resource: https://eth.nanopool.org/api/v1/approximated_earnings/93.2
+    value_template: '{{ float(value_json.data.month.dollars) | round(2) }}'
+    scan_interval: 300
+    unit_of_measurement: '$'
+  - platform: rest
+    name: Desktop Month Revenue Sia
+    resource: https://sia.nanopool.org/api/v1/approximated_earnings/1110
+    value_template: '{{ float(value_json.data.month.dollars) | round(2) }}'
+    scan_interval: 300
+    unit_of_measurement: '$'
   - platform: template
     sensors:
+      desktop_month_revenue:
+        friendly_name: Desktop Month Revenue
+        value_template: "{{ (float(states('sensor.desktop_month_revenue_eth')) + float(states('sensor.desktop_month_revenue_sia'))) | round(2) }}"
+        unit_of_measurement: '$'
+      desktop_month_cost:
+        friendly_name: Desktop Month Cost
+        value_template: "{{ float(1.01 * 30) | round(2) }}"
+        unit_of_measurement: '$'
+      desktop_month_profit:
+        friendly_name: Desktop Month Profit
+        value_template: "{{ (float(states('sensor.desktop_month_revenue')) - float(states('sensor.desktop_month_cost'))) | round(2) }}"
+        unit_of_measurement: '$'
       desktop_watts:
         friendly_name: Desktop Watts
         value_template: "{{ states.switch.desktop_switch.attributes.current_consumption.split(' ')[0] }}"

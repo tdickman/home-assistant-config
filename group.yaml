@@ -156,6 +156,7 @@ Crypto Summary:
     - sensor.sia_mining_balance
     - sensor.eth_rate
     - sensor.sia_rate
+    - sensor.desktop_month_profit
 
 Crypto Rates:
   entities:
@@ -184,6 +185,11 @@ Crypto Detailed:
     - sensor.desktop_watts
     - switch.desktop_switch
     - sensor.desktop_24h_cost
+    - sensor.desktop_month_revenue_eth
+    - sensor.desktop_month_revenue_sia
+    - sensor.desktop_month_revenue
+    - sensor.desktop_month_cost
+    - sensor.desktop_month_profit
 
 Transit Schedule:
   entities:
