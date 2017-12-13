@@ -153,9 +153,9 @@ Crypto:
 Crypto Summary:
   entities:
     - sensor.eth_mining_balance
-    - sensor.sia_mining_balance
+    - sensor.pasc_mining_balance
     - sensor.eth_rate
-    - sensor.sia_rate
+    - sensor.pasc_rate
     - sensor.desktop_month_profit
 
 Crypto Rates:
@@ -164,10 +164,10 @@ Crypto Rates:
     - sensor.gpu1_eth_rate
     - sensor.gpu2_eth_rate
     - sensor.gpu3_eth_rate
-    - sensor.gpu0_sia_rate
-    - sensor.gpu1_sia_rate
-    - sensor.gpu2_sia_rate
-    - sensor.gpu3_sia_rate
+    - sensor.gpu0_pasc_rate
+    - sensor.gpu1_pasc_rate
+    - sensor.gpu2_pasc_rate
+    - sensor.gpu3_pasc_rate
 
 Crypto System:
   entities:
@@ -186,7 +186,7 @@ Crypto Detailed:
     - switch.desktop_switch
     - sensor.desktop_24h_cost
     - sensor.desktop_month_revenue_eth
-    - sensor.desktop_month_revenue_sia
+    - sensor.desktop_month_revenue_pasc
     - sensor.desktop_month_revenue
     - sensor.desktop_month_cost
     - sensor.desktop_month_profit
