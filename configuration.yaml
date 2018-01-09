@@ -174,13 +174,13 @@ switch:
 sensor:
   - platform: rest
     name: Desktop Month Revenue Eth
-    resource: https://eth.nanopool.org/api/v1/approximated_earnings/88
+    resource: https://eth.nanopool.org/api/v1/approximated_earnings/88.73
     value_template: '{{ float(value_json.data.month.dollars) | round(2) }}'
     scan_interval: 300
     unit_of_measurement: '$'
   - platform: rest
     name: Desktop Month Revenue Pasc
-    resource: https://pasc.nanopool.org/api/v1/approximated_earnings/1044
+    resource: https://pasc.nanopool.org/api/v1/approximated_earnings/1035
     value_template: '{{ float(value_json.data.month.dollars) | round(2) }}'
     scan_interval: 300
     unit_of_measurement: '$'
