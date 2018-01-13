@@ -190,14 +190,6 @@ sensor:
         friendly_name: Desktop Month Revenue
         value_template: "{{ (float(states('sensor.desktop_month_revenue_eth')) + float(states('sensor.desktop_month_revenue_pasc'))) | round(2) }}"
         unit_of_measurement: '$'
-      desktop_month_cost:
-        friendly_name: Desktop Month Cost
-        value_template: "{{ float(1.01 * 30) | round(2) }}"
-        unit_of_measurement: '$'
-      desktop_month_profit:
-        friendly_name: Desktop Month Profit
-        value_template: "{{ (float(states('sensor.desktop_month_revenue')) - float(states('sensor.desktop_month_cost'))) | round(2) }}"
-        unit_of_measurement: '$'
       desktop_watts:
         friendly_name: Desktop Watts
         value_template: "{{ states.switch.desktop_switch.attributes.current_consumption.split(' ')[0] }}"
@@ -205,6 +197,14 @@ sensor:
       desktop_24h_cost:
         friendly_name: 24h Cost
         value_template: "{{ ((((states.switch.desktop_switch.attributes.current_consumption.split(' ')[0] | float) - 60) / 1000) * 24 * 0.10) | round(2) }}"
+        unit_of_measurement: '$'
+      desktop_month_cost:
+        friendly_name: Desktop Month Cost
+        value_template: "{{ (float(states('sensor.desktop_24h_cost')) * 30) | round(2) }}"
+        unit_of_measurement: '$'
+      desktop_month_profit:
+        friendly_name: Desktop Month Profit
+        value_template: "{{ (float(states('sensor.desktop_month_revenue')) - float(states('sensor.desktop_month_cost'))) | round(2) }}"
         unit_of_measurement: '$'
   - platform: tcp
     name: GPU0 Eth Rate
