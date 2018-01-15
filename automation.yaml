@@ -242,7 +242,7 @@
   trigger:
     - platform: numeric_state
       entity_id: sensor.bitcoin
-      above: 10000
+      above: 20000
   action:
     - service: notify.html5
       data:
@@ -257,7 +257,7 @@
   trigger:
     - platform: numeric_state
       entity_id: sensor.ethereum
-      above: 500
+      above: 2000
   action:
     - service: notify.html5
       data:
