@@ -114,8 +114,8 @@ http:
   api_password: !secret http_password
   # Uncomment this if you are using SSL or running in Docker etc
   # base_url: home.epiccontructions.com:8123
-  ssl_certificate: /etc/letsencrypt/live/home.epicconstructions.com-0002/fullchain.pem
-  ssl_key: /etc/letsencrypt/live/home.epicconstructions.com-0002/privkey.pem
+  ssl_certificate: /etc/letsencrypt/live/home.epicconstructions.com-0003/fullchain.pem
+  ssl_key: /etc/letsencrypt/live/home.epicconstructions.com-0003/privkey.pem
 
 # Checks for available updates
 updater:
