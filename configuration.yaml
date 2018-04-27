@@ -87,6 +87,9 @@ light:
 
 media_player:
   - platform: cast
+    host: 192.168.1.27
+  - platform: gpmdp
+    host: 192.168.1.36
 
 xiaomi_aqara:
   gateways:
