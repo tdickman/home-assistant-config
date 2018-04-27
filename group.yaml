@@ -3,7 +3,6 @@ default_view:
   entities:
     - media_player.living_room_home
     - media_player.toms
-    - group.crypto_summary
     - group.states
     - group.weather_summary
     - group.thermostat
@@ -59,7 +58,6 @@ Automations:
     - automation.alarm_triggered_notification
     - automation.alarm_armed_notification
     - automation.display_state_change
-    - automation.crypto_miner_low_hash_rate
     - automation.crypto_price_alerts_bitcoin
     - automation.crypto_price_alerts_ethereum
 
@@ -78,6 +76,8 @@ Living Room:
     - light.hanging_light_1
     - light.hanging_light_2
     - light.hanging_light_3
+    - light.desk_lamp_top
+    - light.desk_lamp_bottom
 
 Bedroom:
   entities:
@@ -95,6 +95,7 @@ Bathroom:
 People:
   entities:
     - device_tracker.pixel_xl
+    - device_tracker.google_maps_111996961036989362660
 
 Lights:
   view: yes
@@ -139,55 +140,8 @@ Other:
     - alarm_control_panel.ha_alarm
     - group.tv
     - group.transit_schedule
-
-Crypto:
-  view: yes
-  entities:
-    - group.crypto_summary
-    - group.crypto_rates
-    - group.crypto_system
-    - group.crypto_detailed
-
-Crypto Summary:
-  entities:
-    - sensor.eth_mining_balance
-    - sensor.pasc_mining_balance
-    - sensor.eth_rate
-    - sensor.pasc_rate
-    - sensor.desktop_month_profit
-
-Crypto Rates:
-  entities:
-    - sensor.gpu0_eth_rate
-    - sensor.gpu1_eth_rate
-    - sensor.gpu2_eth_rate
-    - sensor.gpu3_eth_rate
-    - sensor.gpu0_pasc_rate
-    - sensor.gpu1_pasc_rate
-    - sensor.gpu2_pasc_rate
-    - sensor.gpu3_pasc_rate
-
-Crypto System:
-  entities:
-    - sensor.gpu0_temperature
-    - sensor.gpu1_temperature
-    - sensor.gpu2_temperature
-    - sensor.gpu3_temperature
-    - sensor.gpu0_fan
-    - sensor.gpu1_fan
-    - sensor.gpu2_fan
-    - sensor.gpu3_fan
-
-Crypto Detailed:
-  entities:
     - sensor.desktop_watts
     - switch.desktop_switch
-    - sensor.desktop_24h_cost
-    - sensor.desktop_month_revenue_eth
-    - sensor.desktop_month_revenue_pasc
-    - sensor.desktop_month_revenue
-    - sensor.desktop_month_cost
-    - sensor.desktop_month_profit
 
 Transit Schedule:
   entities:

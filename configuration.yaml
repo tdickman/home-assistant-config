@@ -53,14 +53,6 @@ homeassistant:
       friendly_name: Humidity
     sensor.desktop_month_profit:
       icon: mdi:currency-usd
-    sensor.eth_mining_balance:
-      icon: mdi:currency-eth
-    sensor.pasc_mining_balance:
-      icon: mdi:harddisk
-    sensor.eth_rate:
-      icon: mdi:pound
-    sensor.pasc_rate:
-      icon: mdi:pound
     sensor.desktop_watts:
       icon: mdi:power-plug
     sensor.desktop_24h_cost:
@@ -95,11 +87,10 @@ light:
 
 media_player:
   - platform: cast
-  - platform: cast
 
-xiaomi:
+xiaomi_aqara:
   gateways:
-    - sid: !secret xiaomi_sid
+    - mac: !secret xiaomi_mac
       key: !secret xiaomi_key
 
 nest:
@@ -145,6 +136,8 @@ switch:
       - light.hanging_light_1
       - light.hanging_light_2
       - light.hanging_light_3
+      - light.desk_lamp_top
+      - light.desk_lamp_bottom
       - light.bedroom_1
       - light.bedroom_2
       - light.bedroom_3
@@ -161,6 +154,7 @@ switch:
     stop_colortemp: 1900
     mode: mired
   - platform: broadlink
+    type: rm_mini
     host: 192.168.1.21
     mac: 'B4:43:0D:FC:17:3A'
     switches:
@@ -172,198 +166,6 @@ switch:
 
 # Weather Prediction
 sensor:
-  - platform: rest
-    name: Desktop Month Revenue Eth
-    resource: https://eth.nanopool.org/api/v1/approximated_earnings/50
-    value_template: "{{ (float(value_json.data.month.dollars) * (float(states('sensor.eth_rate')) / 50) ) | round(2) }}"
-    scan_interval: 300
-    unit_of_measurement: '$'
-  - platform: rest
-    name: Desktop Month Revenue Pasc
-    resource: https://pasc.nanopool.org/api/v1/approximated_earnings/1000
-    value_template: "{{ (float(value_json.data.month.dollars) * (float(states('sensor.pasc_rate')) / 1000) ) | round(2) }}"
-    scan_interval: 300
-    unit_of_measurement: '$'
-  - platform: template
-    sensors:
-      desktop_month_revenue:
-        friendly_name: Desktop Month Revenue
-        value_template: "{{ (float(states('sensor.desktop_month_revenue_eth')) + float(states('sensor.desktop_month_revenue_pasc'))) | round(2) }}"
-        unit_of_measurement: '$'
-      desktop_watts:
-        friendly_name: Desktop Watts
-        value_template: "{{ states.switch.desktop_switch.attributes.current_consumption.split(' ')[0] }}"
-        unit_of_measurement: 'Watts'
-      desktop_24h_cost:
-        friendly_name: 24h Cost
-        value_template: "{{ ((((states.switch.desktop_switch.attributes.current_consumption.split(' ')[0] | float) - 60) / 1000) * 24 * 0.10) | round(2) }}"
-        unit_of_measurement: '$'
-      desktop_month_cost:
-        friendly_name: Desktop Month Cost
-        value_template: "{{ (float(states('sensor.desktop_24h_cost')) * 30) | round(2) }}"
-        unit_of_measurement: '$'
-      desktop_month_profit:
-        friendly_name: Desktop Month Profit
-        value_template: "{{ (float(states('sensor.desktop_month_revenue')) - float(states('sensor.desktop_month_cost'))) | round(2) }}"
-        unit_of_measurement: '$'
-  - platform: tcp
-    name: GPU0 Eth Rate
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'MH/s'
-    value_template: '{{ (float(value_json.result[3].split(";")[0] if value_json.result[3].split(";")[0] != "off" else 0) / 1000) | round(2) }}'
-  - platform: tcp
-    name: GPU1 Eth Rate
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'MH/s'
-    value_template: '{{ (float(value_json.result[3].split(";")[1] if value_json.result[3].split(";")[1] != "off" else 0) / 1000) | round(2) }}'
-  - platform: tcp
-    name: GPU2 Eth Rate
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'MH/s'
-    value_template: '{{ (float(value_json.result[3].split(";")[2] if value_json.result[3].split(";")[2] != "off" else 0) / 1000) | round(2) }}'
-  - platform: tcp
-    name: GPU3 Eth Rate
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'MH/s'
-    value_template: '{{ (float(value_json.result[3].split(";")[3] if value_json.result[3].split(";")[3] != "off" else 0) / 1000) | round(2) }}'
-  - platform: tcp
-    name: Eth Rate
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'MH/s'
-    value_template: '{{ (float(value_json.result[2].split(";")[0] if value_json.result[2].split(";")[0] != "off" else 0) / 1000) | round(2) }}'
-  - platform: tcp
-    name: GPU0 Pasc Rate
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'MH/s'
-    value_template: '{{ (float(value_json.result[5].split(";")[0] if value_json.result[5].split(";")[0] != "off" else 0) / 1000) | round(2) }}'
-  - platform: tcp
-    name: GPU1 Pasc Rate
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'MH/s'
-    value_template: '{{ (float(value_json.result[5].split(";")[1] if value_json.result[5].split(";")[1] != "off" else 0) / 1000) | round(2) }}'
-  - platform: tcp
-    name: GPU2 Pasc Rate
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'MH/s'
-    value_template: '{{ (float(value_json.result[5].split(";")[2] if value_json.result[5].split(";")[2] != "off" else 0) / 1000) | round(2) }}'
-  - platform: tcp
-    name: GPU3 Pasc Rate
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'MH/s'
-    value_template: '{{ (float(value_json.result[5].split(";")[3] if value_json.result[5].split(";")[3] != "off" else 0) / 1000) | round(2) }}'
-  - platform: tcp
-    name: Pasc Rate
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'MH/s'
-    value_template: '{{ (float(value_json.result[4].split(";")[0] if value_json.result[4].split(";")[0] != "off" else 0) / 1000) | round(2) }}'
-  - platform: tcp
-    name: GPU0 Temperature
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'C'
-    value_template: '{{ float(value_json.result[6].split(";")[0]) }}'
-  - platform: tcp
-    name: GPU1 Temperature
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'C'
-    value_template: '{{ float(value_json.result[6].split(";")[2]) }}'
-  - platform: tcp
-    name: GPU2 Temperature
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'C'
-    value_template: '{{ float(value_json.result[6].split(";")[4]) }}'
-  - platform: tcp
-    name: GPU3 Temperature
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: 'C'
-    value_template: '{{ float(value_json.result[6].split(";")[6]) }}'
-  - platform: tcp
-    name: GPU0 Fan
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: '%'
-    value_template: '{{ float(value_json.result[6].split(";")[1]) }}'
-  - platform: tcp
-    name: GPU1 Fan
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: '%'
-    value_template: '{{ float(value_json.result[6].split(";")[3]) }}'
-  - platform: tcp
-    name: GPU2 Fan
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: '%'
-    value_template: '{{ float(value_json.result[6].split(";")[5]) }}'
-  - platform: tcp
-    name: GPU3 Fan
-    host: localhost
-    port: 3333
-    payload: '{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}'
-    unit_of_measurement: '%'
-    value_template: '{{ float(value_json.result[6].split(";")[7]) }}'
-  - platform: rest
-    name: Eth Mining Balance
-    resource: !secret eth_mining_balance_url
-    value_template: '{{ value_json.data.balance | round(4) }}'
-    unit_of_measurement: 'ETH'
-    scan_interval: 300
-  - platform: rest
-    name: Pasc Mining Balance
-    resource: !secret pasc_mining_balance_url
-    value_template: '{{ value_json.data.balance | round(2) }}'
-    unit_of_measurement: 'PASC'
-    scan_interval: 300
-  - platform: coinmarketcap
-    currency: bitcoin
-  - platform: coinmarketcap
-    currency: ethereum
-  # - platform: gtfs_realtime
-  # - trip_update_url: 'https://data.texas.gov/download/rmk2-acnw/application/octet-stream'
-  # - vehicle_position_url: 'https://data.texas.gov/download/eiei-9rpf/application/octet-stream'
-  # - departures:
-  # - - name: Home to work (22)
-  # -   route: 22
-  # -   stopid: 4162
-  # - - name: Home to work (663)
-  # -   route: 663
-  # -   stopid: 4162
-  # - - name: Work to home
-  # -   route: 21
-  # -   stopid: 5599
-  # - - name: Work to airport
-  # -   route: 100
-  # -   stopid: 514
   - platform: darksky
     units: us
     api_key: !secret darksky_key
@@ -399,6 +201,9 @@ device_tracker:
     password: !secret tomato_password
     http_id: !secret tomato_http_id
     consider_home: 180
+  - platform: google_maps
+    username: tdickmanlocation@gmail.com
+    password: BHlorvsUiWtKsSUpKAF6dJfBZ
     # - platform: bluetooth_tracker
     # - interval_seconds: 10
     # - consider_home: 180
@@ -461,3 +266,10 @@ input_boolean:
 
 shell_command:
   enable_display: 'ssh tom@192.168.1.41 "export DISPLAY=:0; xset dpms force {{states.input_boolean.display_state.state}}"'
+
+zones:
+  - name: Home
+    latitude: 30.280812
+    longitude: -97.773657
+    radius: 100
+    icon: mdi:account-multiple

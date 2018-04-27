@@ -28,3 +28,4 @@ custom_components/
 gtfs/
 *.sqlite
 __pycache__/
+entity_registry.yaml
