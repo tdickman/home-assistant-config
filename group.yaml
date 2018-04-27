@@ -23,7 +23,7 @@ Packages:
 
 TV:
   entities:
-    - switch.tv_power
+    - script.tv_power
     - script.tv_volume_up
     - script.tv_volume_down
 
@@ -48,8 +48,6 @@ Sensors:
 Automations:
   entities:
     - automation.wakeup_and_run
-    - automation.transition_home
-    - automation.transition_away
     - automation.home
     - automation.away
     - automation.netflix__pause
@@ -135,18 +133,7 @@ Other:
   entities:
     - group.automations
     - group.sensors
-    - input_boolean.display_state
-    - device_tracker.pixel_xl
     - alarm_control_panel.ha_alarm
     - group.tv
     - group.transit_schedule
-    - sensor.desktop_watts
-    - switch.desktop_switch
-
-Transit Schedule:
-  entities:
-    - sensor.home_to_work_22
-    - sensor.home_to_work_663
-    - sensor.work_to_home
-    - sensor.work_to_airport
-    - sensor.gtfs_sensor
+    - group.people

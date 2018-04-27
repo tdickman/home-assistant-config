@@ -1,13 +1,33 @@
+tv_power:
+  sequence:
+    - service: switch.broadlink_send_packet_192_168_1_21
+      data:
+        packet: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
+
 tv_volume_up:
   sequence:
-    - service: broadlink.send_packet_192_168_1_193
+    - service: switch.broadlink_send_packet_192_168_1_21
       data:
         packet: 
-          - 'JgBYAAABKZIVERQ1FREUERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQSExIUNRQ2FBEUERQRFBIUNRU1FBEUERQ2FDYUNhQ1FAAFOAABKkgUAAxLAAEpSRQADQU='
+          - 'JgBoAAABKZMUERQ2FBEUERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQSExITNhQ2FBEUERQRFBIUNRQ2FBEUERQ2FDYUNhQ1FAAFOAABKUkUAAxJAAEqSBQADEoAASlJFAAMSQABKkgUAA0F'
 
 tv_volume_down:
   sequence:
-    - service: broadlink.send_packet_192_168_1_193
+    - service: switch.broadlink_send_packet_192_168_1_21
       data:
         packet: 
           - 'JgBYAAABKZMUERQ2FBEUERQRFBEUERQSFDUUEhQ1FDYUNhQ2FDYUERQ2FBEUERQ2FDYUERQRFBEUERQ2FDYUERQRFDYUNhQ1FAAFOAABKkgVAAxKAAEqSBQADQU='
+
+start_vacuum:
+  sequence:
+    - service: switch.broadlink_send_packet_192_168_1_21
+      data:
+        packet:
+          - 'JgAwABEABgUOAAYICwAF+QoADBQQAAX6DwAGBQ4ABfYRAAX/EQAF/g8ADBoOAAwEDAANBQAAAAAAAAAA'
+
+stop_vacuum:
+  sequence:
+    - service: switch.broadlink_send_packet_192_168_1_21
+      data:
+        packet:
+          - 'JgAgAA0ABfQPAAYTCwAF+woABgQMAAYLCgAMFQoABfQOAA0FAAAAAAAAAAA='
