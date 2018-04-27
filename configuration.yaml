@@ -86,10 +86,10 @@ light:
   host: 192.168.1.12
 
 media_player:
-  - platform: cast
-    host: 192.168.1.27
   - platform: gpmdp
     host: 192.168.1.36
+  # - platform: cast
+  #   host: 192.168.1.27
 
 xiaomi_aqara:
   gateways:
@@ -160,11 +160,10 @@ switch:
     type: rm_mini
     host: 192.168.1.21
     mac: 'B4:43:0D:FC:17:3A'
-    switches:
-      tv_on:
-        friendly_name: 'TV Power'
-        command_on: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
-        command_off: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
+  - platform: broadlink
+    type: rm_mini
+    host: 192.168.1.10
+    mac: 'B4:43:0D:FC:17:2E'
 
 # Weather Prediction
 sensor:

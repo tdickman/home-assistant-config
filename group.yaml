@@ -8,6 +8,7 @@ default_view:
     - group.thermostat
     - group.light_control
     - camera.usps
+    - group.packages
     - media_player.gpm_desktop_player
 
 Light Control:
@@ -21,12 +22,19 @@ Packages:
   entities:
     - sensor.ups
     - sensor.fedex
+    - sensor.usps
 
 TV:
   entities:
     - script.tv_power
     - script.tv_volume_up
     - script.tv_volume_down
+    - script.clean_vacuum
+    - script.home_vacuum
+    - script.forward_vacuum
+    - script.left_vacuum
+    - script.right_vacuum
+    - script.max_vacuum
 
 States:
   entities:
