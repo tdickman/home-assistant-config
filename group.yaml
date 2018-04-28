@@ -41,6 +41,7 @@ States:
     - input_select.house_mode
     - input_select.presence
     - input_select.motion_lights
+    - input_select.activity
 
 Sensors:
   entities:
@@ -65,6 +66,8 @@ Automations:
     - automation.alarm_triggered_notification
     - automation.alarm_armed_notification
     - automation.display_state_change
+    - automation.activity__normal
+    - automation.activity__tv
     - automation.crypto_price_alerts_bitcoin
     - automation.crypto_price_alerts_ethereum
 

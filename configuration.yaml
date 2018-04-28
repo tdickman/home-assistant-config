@@ -263,6 +263,11 @@ input_select:
       - 'on'
       - 'night'
       - 'off'
+  activity:
+    name: Activity
+    options:
+      - 'normal'
+      - 'tv'
 
 input_boolean:
   display_state:

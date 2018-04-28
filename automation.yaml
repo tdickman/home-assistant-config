@@ -205,12 +205,44 @@
         entity_id: input_select.motion_lights
         option: 'on'
 
-- alias: Display State Change
+- alias: Activity - Normal
   trigger:
     platform: state
-    entity_id: input_boolean.display_state
+    entity_id: input_select.activity
+    to: 'normal'
   action:
-    service: shell_command.enable_display
+    - service: homeassistant.turn_on
+      entity_id: switch.fluxer
+    - service: light.turn_on
+      entity_id: light.couch_1
+    - service: light.turn_on
+      entity_id: light.couch_2
+- alias: Activity - TV
+  trigger:
+    platform: state
+    entity_id: input_select.activity
+    to: 'tv'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: switch.fluxer
+    - service: homeassistant.turn_off
+      entity_id: light.couch_1
+    - service: homeassistant.turn_off
+      entity_id: light.couch_2
+    - service: light.turn_on
+      entity_id: light.desk_lamp_top
+      data:
+        rgb_color:
+          - 5
+          - 0
+          - 255
+    - service: light.turn_on
+      entity_id: light.desk_lamp_bottom
+      data:
+        rgb_color:
+          - 5
+          - 0
+          - 255
 
 # - alias: Chromecast Turn TV On
 #   trigger:
