@@ -1,6 +1,7 @@
 homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
+  packages: !include_dir_named packages
   # Location required to calculate the time the sun rises and sets
   latitude: 30.280
   longitude: -97.773
@@ -88,8 +89,6 @@ light:
 media_player:
   - platform: gpmdp
     host: 192.168.1.36
-  # - platform: cast
-  #   host: 192.168.1.27
 
 xiaomi_aqara:
   gateways:
@@ -171,23 +170,6 @@ sensor:
     currency: bitcoin
   - platform: coinmarketcap
     currency: ethereum
-  - platform: darksky
-    units: us
-    api_key: !secret darksky_key
-    forecast:
-      - 1
-      - 2
-    monitored_conditions:
-      - summary
-      - nearest_storm_distance
-      - temperature
-      - humidity
-      - temperature_min
-      - temperature_max
-      - precip_probability
-      - minutely_summary
-      - hourly_summary
-      - precip_intensity_max
   - platform: ups
     username: !secret ups_username
     password: !secret ups_password
