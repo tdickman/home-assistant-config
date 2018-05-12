@@ -225,8 +225,10 @@
   action:
     - service: homeassistant.turn_off
       entity_id: switch.fluxer
-    - service: homeassistant.turn_off
+    - service: light.turn_on
       entity_id: light.couch_1
+      data:
+        brightness: 150
     - service: homeassistant.turn_off
       entity_id: light.couch_2
     - service: light.turn_on

@@ -26,6 +26,7 @@ sensor:
       - temperature
       - humidity
       - precip_intensity_max
+      - precip_type
 
   - platform: season
   - platform: template

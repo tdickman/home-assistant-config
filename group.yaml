@@ -79,6 +79,7 @@ Climate:
     - group.weather
     - camera.radar
     - camera.home
+    - sensor.dark_sky_precip_type
 
 Living Room:
   entities:
@@ -106,7 +107,7 @@ Bathroom:
 People:
   entities:
     - device_tracker.pixel_xl
-    - device_tracker.google_maps_111996961036989362660
+    # - device_tracker.google_maps_111996961036989362660
 
 Lights:
   view: yes
