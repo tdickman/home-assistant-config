@@ -138,23 +138,6 @@
     service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.ha_alarm
 
-- alias: Crypto Miner Low Hash Rate
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.eth_rate
-      below: 32
-  condition:
-    - condition: state
-      entity_id: alarm_control_panel.ha_alarm
-      state: armed_away
-      for:
-        hours: 1
-  action:
-    service: notify.html5
-    data:
-      message: 'Crypto miner hash rate is < 32, and house is currently set to away'
-      title: 'Low hash rate'
-
 - alias: Alarm triggered notification
   trigger:
     - platform: state

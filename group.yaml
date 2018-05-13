@@ -58,15 +58,18 @@ Sensors:
 
 Automations:
   entities:
-    - automation.wakeup_and_run
+    - automation.transition_away
+    - automation.transition_home
     - automation.home
     - automation.away
-    - automation.netflix__pause
     - automation.netflix__play
+    - automation.netflix__pause
+    - automation.wakeup_and_run
     - automation.intruder
     - automation.alarm_triggered_notification
-    - automation.alarm_armed_notification
-    - automation.display_state_change
+    - automation.toggle_house_mode
+    - automation.sleeping
+    - automation.awake
     - automation.activity__normal
     - automation.activity__tv
     - automation.crypto_price_alerts_bitcoin
