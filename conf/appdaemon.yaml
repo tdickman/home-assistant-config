@@ -3,7 +3,7 @@ AppDaemon:
   errorfile: STDERR
   threads: 10
 HASS:
-  ha_url: https://home.epicconstructions.com
+  ha_url: http://192.168.1.9
   ha_key: !secret api_key
 
 # Apps

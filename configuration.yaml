@@ -106,10 +106,11 @@ frontend:
 http:
   # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
+  server_port: 80
   # Uncomment this if you are using SSL or running in Docker etc
   # base_url: home.epiccontructions.com:8123
-  ssl_certificate: /etc/letsencrypt/live/home.epicconstructions.com-0003/fullchain.pem
-  ssl_key: /etc/letsencrypt/live/home.epicconstructions.com-0003/privkey.pem
+  # ssl_certificate: /etc/letsencrypt/live/home.epicconstructions.com-0003/fullchain.pem
+  # ssl_key: /etc/letsencrypt/live/home.epicconstructions.com-0003/privkey.pem
 
 # Checks for available updates
 updater:
@@ -215,16 +216,19 @@ camera:
     name: home
     input: -rtsp_transport tcp -i rtsp://192.168.1.121:554/ch0.h264
 
-emulated_hue:
-  type: google_home
-  listen_port: 80
-  expose_by_default: false
+# emulated_hue:
+#   type: google_home
+#   listen_port: 80
+#   expose_by_default: false
 
 notify:
   - name: html5
     platform: html5
     gcm_api_key: !secret html5_gcm_api_key
     gcm_sender_id: !secret html5_gcm_sender_id
+  - name: pushbullet
+    platform: pushbullet
+    api_key: !secret pushbullet_api_key
 
 alarm_control_panel:
   - name: ha_alarm

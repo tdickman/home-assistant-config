@@ -144,7 +144,7 @@
       entity_id: alarm_control_panel.ha_alarm
       to: 'triggered'
   action:
-    service: notify.html5
+    service: notify.pushbullet
     data:
       message: 'Alarm triggered'
       title: 'Alarm'
@@ -261,7 +261,7 @@
       entity_id: sensor.bitcoin
       above: 20000
   action:
-    - service: notify.html5
+    - service: notify.pushbullet
       data:
         message: 'Bitcoin is above $20k!'
         title: 'Bitcoin Price'
@@ -276,7 +276,7 @@
       entity_id: sensor.ethereum
       above: 2000
   action:
-    - service: notify.html5
+    - service: notify.pushbullet
       data:
         message: 'Ethereum is above $2000!'
         title: 'Ethereum Price'
