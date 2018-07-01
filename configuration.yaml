@@ -184,15 +184,19 @@ tts:
   platform: google
 
 device_tracker:
-  - platform: tomato
-    host: 192.168.1.1
+  - platform: asuswrt
+    host: !secret router_host
     username: admin
-    password: !secret tomato_password
-    http_id: !secret tomato_http_id
-    consider_home: 180
-  - platform: google_maps
-    username: tdickmanlocation@gmail.com
-    password: BHlorvsUiWtKsSUpKAF6dJfBZ
+    password: !secret router_password
+    #- platform: tomato
+    #- host: 192.168.1.1
+    #- username: admin
+    #- password: !secret tomato_password
+    #- http_id: !secret tomato_http_id
+    #- consider_home: 180
+    # - platform: google_maps
+    #- username: tdickmanlocation@gmail.com
+    #- password: BHlorvsUiWtKsSUpKAF6dJfBZ
     # - platform: bluetooth_tracker
     # - interval_seconds: 10
     # - consider_home: 180
