@@ -18,8 +18,8 @@ sensor:
       - wind_speed
       - cloud_cover
       - icon
-      - temperature_min
-      - temperature_max
+      - temperature_low
+      - temperature_high
       - daily_summary
       - hourly_summary
       - nearest_storm_distance
