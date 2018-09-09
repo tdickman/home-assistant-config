@@ -1,85 +1,85 @@
 tv_power:
   sequence:
-    - service: switch.broadlink_send_packet_192_168_1_21
+    - service: switch.broadlink_send_packet_192_168_1_63
       data:
         packet: 'JgBYAAABKZIVERQ1FBEVERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQRFDYUNhQRFBEUERQ2FBEUNhQRFBEUNhQ2FDYUERQ1FAAFOAABKkgVAAxKAAEpSRQADQU='
 
 tv_volume_up:
   sequence:
-    - service: switch.broadlink_send_packet_192_168_1_21
+    - service: switch.broadlink_send_packet_192_168_1_63
       data:
         packet: 
           - 'JgBoAAABKZMUERQ2FBEUERQRFBEUERQRFDYUERQ2FDYUNRQ2FDYUERQSExITNhQ2FBEUERQRFBIUNRQ2FBEUERQ2FDYUNhQ1FAAFOAABKUkUAAxJAAEqSBQADEoAASlJFAAMSQABKkgUAA0F'
 
 tv_volume_down:
   sequence:
-    - service: switch.broadlink_send_packet_192_168_1_21
+    - service: switch.broadlink_send_packet_192_168_1_63
       data:
         packet: 
           - 'JgBYAAABKZMUERQ2FBEUERQRFBEUERQSFDUUEhQ1FDYUNhQ2FDYUERQ2FBEUERQ2FDYUERQRFBEUERQ2FDYUERQRFDYUNhQ1FAAFOAABKkgVAAxKAAEqSBQADQU='
 
 clean_vacuum:
   sequence:
-    - service: switch.broadlink_send_packet_192_168_1_21
+    - service: switch.broadlink_send_packet_192_168_1_63
       data:
         packet:
           - 'JgBIAAABIpQSExETERMSExETERQRNxMSEjcRFBE3EhMSNxEUETcSExETERQROBISEhMRExE5EBMSOBA5ERMROBE4ETgSEhI3EgANBQ=='
-    - service: switch.broadlink_send_packet_192_168_1_10
+    - service: switch.broadlink_send_packet_192_168_1_51
       data:
         packet:
           - 'JgBIAAABIpQSExETERMSExETERQRNxMSEjcRFBE3EhMSNxEUETcSExETERQROBISEhMRExE5EBMSOBA5ERMROBE4ETgSEhI3EgANBQ=='
 
 forward_vacuum:
   sequence:
-    - service: switch.broadlink_send_packet_192_168_1_21
+    - service: switch.broadlink_send_packet_192_168_1_63
       data:
         packet:
           - 'JgBIAAABI5QSEhMRFBETEREUExISNhMSEzYTEhI2ExEUNhISEzYTERITFTQTERQ1FBEROBMREzYROBMSEzUUERE4ExITNRQREwANBQ=='
-    - service: switch.broadlink_send_packet_192_168_1_10
+    - service: switch.broadlink_send_packet_192_168_1_51
       data:
         packet:
           - 'JgBIAAABI5QSEhMRFBETEREUExISNhMSEzYTEhI2ExEUNhISEzYTERITFTQTERQ1FBEROBMREzYROBMSEzUUERE4ExITNRQREwANBQ=='
 
 left_vacuum:
   sequence:
-    - service: switch.broadlink_send_packet_192_168_1_21
+    - service: switch.broadlink_send_packet_192_168_1_63
       data:
         packet:
           - 'JgBIAAABI5QQFBETEhMRExQRERMROBISEjgRExE4ERMSOBAUETgRExITERQQOBI3EhMRExE4ETgROBE4ERMSExE2EzcSExITEQANBQ=='
-    - service: switch.broadlink_send_packet_192_168_1_10
+    - service: switch.broadlink_send_packet_192_168_1_51
       data:
         packet:
           - 'JgBIAAABI5QQFBETEhMRExQRERMROBISEjgRExE4ERMSOBAUETgRExITERQQOBI3EhMRExE4ETgROBE4ERMSExE2EzcSExITEQANBQ=='
 
 right_vacuum:
   sequence:
-    - service: switch.broadlink_send_packet_192_168_1_21
+    - service: switch.broadlink_send_packet_192_168_1_63
       data:
         packet:
           - 'JgBIAAABI5QRExERFBMRExEUFBAROBISEjgRExE4FQ8SOBAUETgRExIREzgRExQQEhMSNxEUERMUNREUFDURNxI3ERQROBU0EgANBQ=='
-    - service: switch.broadlink_send_packet_192_168_1_10
+    - service: switch.broadlink_send_packet_192_168_1_51
       data:
         packet:
           - 'JgBIAAABI5QRExERFBMRExEUFBAROBISEjgRExE4FQ8SOBAUETgRExIREzgRExQQEhMSNxEUERMUNREUFDURNxI3ERQROBU0EgANBQ=='
 
 max_vacuum:
   sequence:
-    - service: switch.broadlink_send_packet_192_168_1_21
+    - service: switch.broadlink_send_packet_192_168_1_63
       data:
         packet:
           - 'JgBIAAABIpQRExEUERQQExEUEBUROg8TETgRExE4EhMROBAUETgRExEUEDkQOREUEBQQORE3EhMRPwoUEBQROBA5EBUQFBA4EgANBQ=='
-    - service: switch.broadlink_send_packet_192_168_1_10
+    - service: switch.broadlink_send_packet_192_168_1_51
       data:
         packet:
           - 'JgBIAAABIpQRExEUERQQExEUEBUROg8TETgRExE4EhMROBAUETgRExEUEDkQOREUEBQQORE3EhMRPwoUEBQROBA5EBUQFBA4EgANBQ=='
 
 home_vacuum:
   sequence:
-    - service: switch.broadlink_send_packet_192_168_1_21
+    - service: switch.broadlink_send_packet_192_168_1_63
       data:
         packet:
           - 'JgBIAAABIpQSEhETEhMSExAUEhMRNxITETgSExA4EhMROBETETgSEhE5EBQRFBETETgRExEUERMSEhI4ETgSNhITEDkSNxE4EQANBQ=='
-    - service: switch.broadlink_send_packet_192_168_1_10
+    - service: switch.broadlink_send_packet_192_168_1_51
       data:
         packet:
           - 'JgBIAAABIpQSEhETEhMSExAUEhMRNxITETgSExA4EhMROBETETgSEhE5EBQRFBETETgRExEUERMSEhI4ETgSNhITEDkSNxE4EQANBQ=='
