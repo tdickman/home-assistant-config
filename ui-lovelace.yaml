@@ -3,6 +3,9 @@
 # https://github.com/dale3h/python-lovelace
 
 title: Home
+resources:
+  - url: /local/plan-coordinates.js?v=1
+    type: js
 views:
   - title: Main
     id: main
@@ -19,6 +22,7 @@ views:
           - input_select.activity
       - type: glance
         title: Thermostat
+        show_name: false
         entities:
           - name: Temp
             entity: sensor.temperature_158d00011003cd
@@ -30,6 +34,7 @@ views:
             entity: binary_sensor.hallway_thermostat_fan
       - type: glance
         title: Light Control
+        show_state: false
         entities:
           - entity: light.bedroom
             tap_action: toggle
@@ -53,6 +58,77 @@ views:
           - entity: media_player.gpm_desktop_player
             tap_action: call-service
             service: media_player.media_play_pause
+  - title: Layout
+    id: layout
+    panel: true
+    cards:
+      - type: vertical-stack
+        cards: 
+          # - type: custom:plan-coordinates                    
+          - type: picture-elements
+            image: /local/apt_floorplan.png
+            elements:
+              - type: state-icon
+                tap_action: toggle
+                entity: light.bedroom
+                style:
+                  top: 24%
+                  left: 61%
+              - type: state-icon
+                tap_action: toggle
+                entity: light.bathroom
+                style:
+                  top: 31%
+                  left: 24%
+              - type: state-label
+                entity: sensor.hallway_thermostat_temperature
+                style:
+                  top: 47%
+                  left: 40%
+              - type: state-label
+                entity: sensor.hallway_thermostat_humidity
+                style:
+                  top: 50%
+                  left: 40%
+              - type: state-icon
+                tap_action: toggle
+                entity: light.couch_1
+                style:
+                  top: 43%
+                  left: 50%
+              - type: state-icon
+                tap_action: toggle
+                entity: light.couch_2
+                style:
+                  top: 43%
+                  left: 75%
+              - type: state-icon
+                tap_action: toggle
+                entity: light.desk
+                style:
+                  top: 75%
+                  left: 77%
+              - type: state-icon
+                tap_action: toggle
+                entity: light.dining
+                style:
+                  top: 95%
+                  left: 47%
+              - type: state-label
+                entity: sensor.temperature_158d00011003cd
+                style:
+                  top: 32%
+                  left: 6%
+              - type: state-label
+                entity: sensor.humidity_158d00011003cd
+                style:
+                  top: 35%
+                  left: 6%
+              - type: state-icon
+                entity: binary_sensor.door_window_sensor_158d00010673c9
+                style:
+                  top: 92%
+                  left: 27%
   - title: Media
     id: media
     cards:

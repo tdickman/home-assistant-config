@@ -107,6 +107,17 @@ Bathroom:
     - light.bathroom_3
     - light.bathroom_4
 
+Dining Room:
+  entities:
+    - light.hanging_light_1
+    - light.hanging_light_2
+    - light.hanging_light_3
+
+Desk:
+  entities:
+    - light.desk_lamp_top
+    - light.desk_lamp_bottom
+
 People:
   entities:
     - device_tracker.pixel_xl

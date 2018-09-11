@@ -28,6 +28,15 @@ clean_vacuum:
       data:
         packet:
           - 'JgBIAAABIpQSExETERMSExETERQRNxMSEjcRFBE3EhMSNxEUETcSExETERQROBISEhMRExE5EBMSOBA5ERMROBE4ETgSEhI3EgANBQ=='
+    - delay: '00:00:05'
+    - service: switch.broadlink_send_packet_192_168_1_63
+      data:
+        packet:
+          - 'JgBIAAABIpQSExETERMSExETERQRNxMSEjcRFBE3EhMSNxEUETcSExETERQROBISEhMRExE5EBMSOBA5ERMROBE4ETgSEhI3EgANBQ=='
+    - service: switch.broadlink_send_packet_192_168_1_51
+      data:
+        packet:
+          - 'JgBIAAABIpQSExETERMSExETERQRNxMSEjcRFBE3EhMSNxEUETcSExETERQROBISEhMRExE5EBMSOBA5ERMROBE4ETgSEhI3EgANBQ=='
 
 forward_vacuum:
   sequence:
