@@ -25,7 +25,7 @@ views:
         show_name: false
         entities:
           - name: Temp
-            entity: sensor.temperature_158d00011003cd
+            entity: sensor.hallway_thermostat_temperature
           - name: Humidity
             entity: sensor.hallway_thermostat_humidity
           - name: Mode
@@ -46,7 +46,12 @@ views:
             tap_action: toggle
       - type: glance
         title: Media Control
+        show_state: false
         entities:
+          - name: TV Power
+            entity: script.tv_power
+            tap_action: toggle
+            icon: mdi:power
           - name: TV
             entity: media_player.toms
             tap_action: call-service
@@ -58,77 +63,102 @@ views:
           - entity: media_player.gpm_desktop_player
             tap_action: call-service
             service: media_player.media_play_pause
-  - title: Layout
-    id: layout
-    panel: true
-    cards:
-      - type: vertical-stack
-        cards: 
-          # - type: custom:plan-coordinates                    
-          - type: picture-elements
-            image: /local/apt_floorplan.png
-            elements:
-              - type: state-icon
-                tap_action: toggle
-                entity: light.bedroom
-                style:
-                  top: 24%
-                  left: 61%
-              - type: state-icon
-                tap_action: toggle
-                entity: light.bathroom
-                style:
-                  top: 31%
-                  left: 24%
-              - type: state-label
-                entity: sensor.hallway_thermostat_temperature
-                style:
-                  top: 47%
-                  left: 40%
-              - type: state-label
-                entity: sensor.hallway_thermostat_humidity
-                style:
-                  top: 50%
-                  left: 40%
-              - type: state-icon
-                tap_action: toggle
-                entity: light.couch_1
-                style:
-                  top: 43%
-                  left: 50%
-              - type: state-icon
-                tap_action: toggle
-                entity: light.couch_2
-                style:
-                  top: 43%
-                  left: 75%
-              - type: state-icon
-                tap_action: toggle
-                entity: light.desk
-                style:
-                  top: 75%
-                  left: 77%
-              - type: state-icon
-                tap_action: toggle
-                entity: light.dining
-                style:
-                  top: 95%
-                  left: 47%
-              - type: state-label
-                entity: sensor.temperature_158d00011003cd
-                style:
-                  top: 32%
-                  left: 6%
-              - type: state-label
-                entity: sensor.humidity_158d00011003cd
-                style:
-                  top: 35%
-                  left: 6%
-              - type: state-icon
-                entity: binary_sensor.door_window_sensor_158d00010673c9
-                style:
-                  top: 92%
-                  left: 27%
+      - type: picture-elements
+        image: /local/apt_floorplan.png
+        elements:
+          - type: state-icon
+            tap_action: toggle
+            entity: light.bedroom
+            style:
+              top: 24%
+              left: 61%
+          - type: state-icon
+            tap_action: toggle
+            entity: light.bathroom
+            style:
+              top: 31%
+              left: 24%
+          - type: state-label
+            entity: sensor.hallway_thermostat_temperature
+            style:
+              top: 47%
+              left: 40%
+          - type: state-label
+            entity: sensor.hallway_thermostat_humidity
+            style:
+              top: 50%
+              left: 40%
+          - type: state-icon
+            tap_action: toggle
+            entity: light.couch_1
+            style:
+              top: 43%
+              left: 50%
+          - type: state-icon
+            tap_action: toggle
+            entity: light.couch_2
+            style:
+              top: 43%
+              left: 75%
+          - type: state-icon
+            tap_action: toggle
+            entity: light.desk
+            style:
+              top: 75%
+              left: 77%
+          - type: state-icon
+            tap_action: toggle
+            entity: light.dining_room
+            style:
+              top: 95%
+              left: 47%
+          - type: state-label
+            entity: sensor.temperature_158d00011003cd
+            style:
+              top: 32%
+              left: 6%
+          - type: state-label
+            entity: sensor.humidity_158d00011003cd
+            style:
+              top: 35%
+              left: 6%
+          - type: state-icon
+            entity: binary_sensor.door_window_sensor_158d00010673c9
+            style:
+              top: 92%
+              left: 27%
+          - type: icon
+            service: script.tv_power
+            tap_action: call-service
+            icon: mdi:power
+            style:
+              top: 75%
+              left: 70%
+          - type: state-icon
+            entity: binary_sensor.motion_sensor_158d00012dae15
+            style:
+              top: 23%
+              left: 25%
+          - type: state-icon
+            entity: binary_sensor.motion_sensor_158d0001535b7c
+            style:
+              top: 33%
+              left: 75%
+          - type: state-label
+            entity: sensor.temperature_158d000159f9f2
+            style:
+              top: 43%
+              left: 90%
+          - type: state-label
+            entity: sensor.humidity_158d000159f9f2
+            style:
+              top: 46%
+              left: 90%
+          - type: state-icon
+            entity: media_player.living_room_home
+            style:
+              top: 67.5%
+              left: 24.5%
   - title: Media
     id: media
     cards:
