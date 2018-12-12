@@ -82,9 +82,9 @@ recorder:
 #   username: !secret usps_username
 #   password: !secret usps_password
 
-light:
-  platform: hue
-  host: 192.168.1.12
+hue:
+  bridges:
+    - host: 192.168.1.12
 
 media_player:
   - platform: gpmdp
