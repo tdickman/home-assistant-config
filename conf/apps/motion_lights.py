@@ -1,15 +1,14 @@
-import appdaemon.appapi as appapi
+import appdaemon.plugins.hass.hassapi as hass
 
 
-class MotionLights(appapi.AppDaemon):
+class MotionLights(hass.Hass):
     def initialize(self):
         self.log('Motion lights initialized for {}'.format(self.args['sensor']))
         self.handle = None
         # assert_args(['sensor', 'lights', 'delay'])
-        self.listen_event(self.motion, 'motion', entity_id=self.args['sensor'])
+        self.listen_state(self.motion, entity=self.args['sensor'], new='on')
 
-    def motion(self, event, data, kwargs):
-        self.log('Event: {}, data: {}'.format(event, data))
+    def motion(self, entity, attribute, old, new, kwargs):
         self.log('Motion detected: turning {} on'.format(self.args['lights']))
         if 'brightness' in self.args and 'color_temp' in self.args:
             self.turn_on(self.args['lights'], brightness=self.args['brightness'], color_temp=self.args['color_temp'])

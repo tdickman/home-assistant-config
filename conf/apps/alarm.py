@@ -1,8 +1,8 @@
 import datetime
-import appdaemon.appapi as appapi
+import appdaemon.plugins.hass.hassapi as hass
 
 
-class Alarm(appapi.AppDaemon):
+class Alarm(hass.Hass):
     def initialize(self):
         self.complete_callbacks = []
 

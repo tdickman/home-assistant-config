@@ -1,52 +1,10 @@
-AppDaemon:
+log:
   logfile: STDOUT
   errorfile: STDERR
+appdaemon:
   threads: 10
-HASS:
-  ha_url: http://192.168.1.9
-  ha_key: !secret api_key
-
-# Apps
-hello_world:
-  module: hello
-  class: HelloWorld
-
-Bathroom Motion Light Awake:
-  module: motion_lights
-  class: MotionLights
-  constrain_input_select: input_select.motion_lights,on
-  sensor: binary_sensor.motion_sensor_158d00012dae15
-  lights: group.bathroom
-  stay_on_for: 240
-
-Bathroom Motion Light Sleeping:
-  module: motion_lights
-  class: MotionLights
-  constrain_input_select: input_select.motion_lights,night
-  sensor: binary_sensor.motion_sensor_158d00012dae15
-  lights: light.bathroom_1
-  stay_on_for: 120
-  brightness: 5
-  color_temp: 455
-
-Bedroom Motion Light:
-  module: motion_lights
-  class: MotionLights
-  constrain_input_select: input_select.motion_lights,on
-  sensor: binary_sensor.motion_sensor_158d0001535b7c
-  lights: group.bedroom
-  stay_on_for: 300
-
-Alarm:
-  module: alarm
-  class: Alarm
-  constrain_input_select: input_select.house_mode,sleeping
-  lights: group.bedroom
-  transition_seconds: 1200
-  brightness: 254
-  color_temp: 230
-  schedule:
-    - days: [monday, tuesday, wednesday, thursday, friday]
-      time: '08:00:00'
-    - days: [saturday]
-      time: '08:30:00'
+  plugins:
+    HASS:
+      type: hass
+      ha_url: http://192.168.1.9
+      token: !secret api_key
