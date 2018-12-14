@@ -122,6 +122,16 @@ views:
             style:
               top: 35%
               left: 6%
+          - type: state-label
+            entity: sensor.temperature_158d0002b56e08
+            style:
+              top: 65%
+              left: 74%
+          - type: state-label
+            entity: sensor.humidity_158d0002b56e08
+            style:
+              top: 68.5%
+              left: 74%
           - type: state-icon
             entity: binary_sensor.door_window_sensor_158d00010673c9
             style:

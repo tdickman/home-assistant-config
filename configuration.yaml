@@ -36,6 +36,12 @@ homeassistant:
       friendly_name: Deck Humidity
     sensor.temperature_158d000159f9f2:
       friendly_name: Deck Temperature
+    sensor.humidity_158d0002b56e08:
+      friendly_name: Desk Humidity
+    sensor.temperature_158d0002b56e08:
+      friendly_name: Desk Temperature
+    sensor.pressure_158d0002b56e08:
+      friendly_name: Desk Pressure
     sensor.dark_sky_nearest_storm_distance:
       friendly_name: Nearest Storm Distance
     sensor.dark_sky_precip_probability:
