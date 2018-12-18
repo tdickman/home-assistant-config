@@ -66,8 +66,6 @@ homeassistant:
       icon: mdi:currency-usd
     sensor.desktop_month_cost:
       icon: mdi:currency-usd
-    sensor.desktop_month_profit:
-      icon: mdi:currency-usd
   customize_glob:
     "*_eth_rate":
       icon: mdi:pound
@@ -88,14 +86,18 @@ recorder:
 #   username: !secret usps_username
 #   password: !secret usps_password
 
-hue:
-  bridges:
-    - host: 192.168.1.12
+# hue:
+#   bridges:
+#     - host: 192.168.1.49
 
 media_player:
   - platform: gpmdp
     host: 192.168.1.36
-  - platform: plex
+  - platform: firetv
+    name: Fire TV
+    host: 192.168.1.29
+    adbkey: "/config/adbkey"
+  # - platform: plex
 
 xiaomi_aqara:
   gateways:
@@ -111,7 +113,6 @@ frontend:
 
 http:
   # Uncomment this to add a password (recommended!)
-  api_password: !secret http_password
   server_port: 80
   # Uncomment this if you are using SSL or running in Docker etc
   # base_url: home.epiccontructions.com:8123
@@ -123,6 +124,9 @@ updater:
 
 # Discover some devices automatically
 discovery:
+  ignore:
+    - google_cast
+    - plex_mediaserver
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -183,8 +187,8 @@ sensor:
     username: !secret ups_username
     password: !secret ups_password
     # - platform: fedex
-    # - username: !secret fedex_username
-    # - password: !secret fedex_password
+    #   username: !secret fedex_username
+    #   password: !secret fedex_password
 
 # Text to speech
 tts:
@@ -292,7 +296,7 @@ map:
 cast:
   media_player:
     - host: 192.168.1.68
-    - host: 192.168.1.134
+  #   - host: 192.168.1.134
 
 weather:
   - platform: darksky

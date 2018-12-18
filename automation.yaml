@@ -62,25 +62,29 @@
 - alias: Netflix - Play
   trigger:
     platform: state
-    entity_id: media_player.toms
+    entity_id: media_player.fire_tv
     to: 'playing'
   action:
-    service: light.turn_off
-    entity_id: light.couch_2
+    service: input_select.select_option
+    data:
+      entity_id: input_select.activity
+      option: 'tv'
 - alias: Netflix - Pause
   trigger:
     - platform: state
-      entity_id: media_player.toms
+      entity_id: media_player.fire_tv
       to: 'paused'
     - platform: state
-      entity_id: media_player.toms
+      entity_id: media_player.fire_tv
       to: 'idle'
     - platform: state
-      entity_id: media_player.toms
+      entity_id: media_player.fire_tv
       to: 'off'
   action:
-    service: light.turn_on
-    entity_id: light.couch_2
+    service: input_select.select_option
+    data:
+      entity_id: input_select.activity
+      option: 'normal'
 
 - alias: Wakeup (and run)
   initial_state: false
@@ -211,7 +215,7 @@
     - service: light.turn_on
       entity_id: light.couch_1
       data:
-        brightness: 150
+        brightness: 85
     - service: homeassistant.turn_off
       entity_id: light.couch_2
     - service: light.turn_on
@@ -284,3 +288,11 @@
       entity_id: light.gateway_light_f0b429cbf3e0
       data:
         rgb_color: [0, 255, 0]
+- action:
+  - data:
+      entity_id: switch.fluxer
+    service: switch.turn_on
+  alias: enable flux on platform start
+  trigger:
+  - event: start
+    platform: homeassistant

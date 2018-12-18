@@ -29,3 +29,5 @@ gtfs/
 *.sqlite
 __pycache__/
 entity_registry.yaml
+adbkey
+adbkey.pub
