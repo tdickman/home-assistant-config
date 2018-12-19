@@ -161,6 +161,8 @@ switch:
       - light.bathroom_2
       - light.bathroom_3
       - light.bathroom_4
+      - light.entry_1
+      - light.entry_2
     name: Fluxer
     start_time: '7:00'
     stop_time: '23:00'

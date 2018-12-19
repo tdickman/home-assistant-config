@@ -93,6 +93,8 @@ Living Room:
     - light.hanging_light_3
     - light.desk_lamp_top
     - light.desk_lamp_bottom
+    - light.entry_1
+    - light.entry_2
 
 Bedroom:
   entities:
