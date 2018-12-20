@@ -96,6 +96,11 @@ Living Room:
     - light.entry_1
     - light.entry_2
 
+Entry:
+  entities:
+    - light.entry_1
+    - light.entry_2
+
 Bedroom:
   entities:
     - light.bedroom_1
@@ -120,6 +125,10 @@ Desk:
     - light.desk_lamp_top
     - light.desk_lamp_bottom
 
+Closet:
+  entities:
+    - light.closet_1
+
 People:
   entities:
     - device_tracker.pixel_xl
@@ -131,6 +140,7 @@ Lights:
     - group.living_room
     - group.bedroom
     - group.bathroom
+    - group.closet
 
 Thermostat:
   entities:

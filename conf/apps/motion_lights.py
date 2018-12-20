@@ -38,6 +38,7 @@ class MotionLights(hass.Hass):
                 self.log('High bathroom humidity, keeping lights on')
                 self.cancel_timer(self.handle)
                 self.handle = self.run_in(self.lights_off, self.args['stay_on_for'])
-        else:
-            self.log('Turning lights off')
-            self.turn_off(self.args['lights'])
+                return
+
+        self.log('Turning lights off')
+        self.turn_off(self.args['lights'])
