@@ -27,6 +27,9 @@ views:
           - entity: light.living_room
             tap_action:
               action: toggle
+          - entity: light.closet
+            tap_action:
+              action: toggle
           - entity: switch.fluxer
             tap_action:
               action: toggle
@@ -37,33 +40,46 @@ views:
           - entity: script.tv_power
             icon: 'mdi:power'
             name: TV Power
-            tap_action: toggle
+            tap_action:
+              action: toggle
           - entity: script.tv_volume_up
             icon: 'mdi:chevron-up'
             name: Up
-            tap_action: toggle
+            tap_action:
+              action: toggle
           - entity: script.tv_volume_down
             icon: 'mdi:chevron-down'
             name: Down
-            tap_action: toggle
+            tap_action:
+              action: toggle
           - entity: media_player.gpm_desktop_player
-            service: media_player.media_play_pause
-            tap_action: call-service
+            tap_action:
+              action: call-service
+              service: media_player.media_play_pause
         show_state: false
         title: Media Control
         type: glance
       - elements:
           - entity: light.bedroom
             style:
+              left: 10%
+              top: 10.5%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: light.closet
+            style:
               left: 61%
               top: 24%
-            tap_action: toggle
+            tap_action:
+              action: toggle
             type: state-icon
           - entity: light.bathroom
             style:
               left: 24%
               top: 31%
-            tap_action: toggle
+            tap_action:
+              action: toggle
             type: state-icon
           - entity: sensor.hallway_thermostat_temperature
             style:
@@ -79,25 +95,29 @@ views:
             style:
               left: 50%
               top: 43%
-            tap_action: toggle
+            tap_action:
+              action: toggle
             type: state-icon
           - entity: light.couch_2
             style:
               left: 75%
               top: 43%
-            tap_action: toggle
+            tap_action:
+              action: toggle
             type: state-icon
           - entity: light.desk
             style:
               left: 77%
               top: 75%
-            tap_action: toggle
+            tap_action:
+              action: toggle
             type: state-icon
           - entity: light.dining_room
             style:
               left: 47%
               top: 95%
-            tap_action: toggle
+            tap_action:
+              action: toggle
             type: state-icon
           - entity: sensor.temperature_158d00011003cd
             style:
@@ -129,7 +149,8 @@ views:
             style:
               left: 70%
               top: 75%
-            tap_action: call-service
+            tap_action:
+              action: call-service
             type: icon
           - entity: binary_sensor.motion_sensor_158d00012dae15
             style:
@@ -155,6 +176,18 @@ views:
             style:
               left: 24.5%
               top: 67.5%
+            type: state-icon
+          - entity: light.entry
+            style:
+              left: 27.5%
+              top: 84%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: binary_sensor.motion_sensor_158d00013fb601
+            style:
+              left: 29%
+              top: 10.5%
             type: state-icon
         image: /local/apt_floorplan.png
         type: picture-elements
@@ -183,15 +216,15 @@ views:
     id: media
     title: Media
   - cards:
-      - type: thermostat
-        entity: climate.hallway
-      - type: entities
-        entities:
+      - entity: climate.hallway
+        type: thermostat
+      - entities:
           - entity: sensor.temperature_158d00011003cd
           - entity: sensor.hallway_thermostat_humidity
           - entity: sensor.humidity_158d00011003cd
         show_header_toggle: false
         title: Temperatures
+        type: entities
       - camera_image: camera.home
         entity: camera.home
         show_info: true
@@ -204,10 +237,10 @@ views:
         tap_action: dialog
         title: radar
         type: picture-entity
-      - type: history-graph
-        entities:
+      - entities:
           - sensor.temperature_158d000159f9f2
           - sensor.temperature_158d00011003cd
+        type: history-graph
     id: climate
     title: Climate
   - cards:
@@ -269,12 +302,12 @@ views:
           - binary_sensor.motion_sensor_158d00012dae15
           - binary_sensor.motion_sensor_158d0001535b7c
           - binary_sensor.switch_158d00013f9a76
-        show_header_toggle: true
+        show_header_toggle: false
         title: Sensors
         type: entities
       - entities:
           - device_tracker.pixel_xl
-        show_header_toggle: true
+        show_header_toggle: false
         title: People
         type: entities
       - entities:
@@ -289,4 +322,6 @@ views:
         type: entities
       - entity: alarm_control_panel.ha_alarm
         type: alarm-panel
+      - entity: sensor.ups
+        type: sensor
     title: Other

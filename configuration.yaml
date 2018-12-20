@@ -22,6 +22,8 @@ homeassistant:
       friendly_name: Bathroom Motion Sensor
     binary_sensor.motion_sensor_158d0001535b7c:
       friendly_name: Bedroom Motion Sensor
+    binary_sensor.motion_sensor_158d00013fb601:
+      friendly_name: Closet Motion Sensor
     binary_sensor.switch_158d00013f9a76:
       friendly_name: Button Bedroom
     binary_sensor.door_window_sensor_158d00010673c9:
