@@ -6,28 +6,38 @@ class MotionLights(hass.Hass):
         self.log('Motion lights initialized for {}'.format(self.args['sensor']))
         self.handle = None
         # assert_args(['sensor', 'lights', 'delay'])
-        self.listen_state(self.motion, entity=self.args['sensor'], new='on')
+        self.listen_state(self.motion_on, entity=self.args['sensor'], new='on')
+        self.listen_state(self.motion_off, entity=self.args['sensor'], new='off')
 
-    def motion(self, entity, attribute, old, new, kwargs):
+    def motion_on(self, entity, attribute, old, new, kwargs):
         self.log('Motion detected: turning {} on'.format(self.args['lights']))
+        self.cancel_timer(self.handle)
+        self._light_on()
+
+    def _light_on(self):
         if 'brightness' in self.args and 'color_temp' in self.args:
             self.turn_on(self.args['lights'], brightness=self.args['brightness'], color_temp=self.args['color_temp'])
         else:
             self.turn_on(self.args['lights'])
+
+    def motion_off(self, entity, attribute, old, new, kwargs):
+        # Skip duplicate off events
+        if old == new:
+            return
+        self.log('Motion ended: starting delayed off, {} seconds'.format(self.args['stay_on_for']))
         self.cancel_timer(self.handle)
         self.handle = self.run_in(self.lights_off, self.args['stay_on_for'])
 
     def lights_off(self, kwawgs):
-        bathroom_humidity = float(self.get_state('sensor.humidity_158d00011003cd'))
-        hallway_humidity = float(self.get_state('sensor.hallway_thermostat_humidity'))
-        self.log('Bathroom humidity {}, hallway humidity {}'.format(bathroom_humidity, hallway_humidity))
-        is_motion = self.get_state(self.args['sensor'])
         # Renew timer if humidity is high in bathroom
-        if self.get_state(self.args['sensor']) == 'on':
-            self.log('Motion still exists, keeping lights on')
-            self.handle = self.run_in(self.lights_off, self.args['stay_on_for'])
-        elif self.args['sensor'] == 'binary_sensor.motion_sensor_158d00012dae15' and bathroom_humidity > (hallway_humidity + 20):
-            self.log('High bathroom humidity, keeping lights on')
-            self.handle = self.run_in(self.lights_off, self.args['stay_on_for'])
+        if self.args['sensor'] == 'binary_sensor.motion_sensor_158d00012dae15':
+            bathroom_humidity = float(self.get_state('sensor.humidity_158d00011003cd'))
+            hallway_humidity = float(self.get_state('sensor.hallway_thermostat_humidity'))
+            self.log('Bathroom humidity {}, hallway humidity {}'.format(bathroom_humidity, hallway_humidity))
+            if bathroom_humidity > (hallway_humidity + 20):
+                self.log('High bathroom humidity, keeping lights on')
+                self.cancel_timer(self.handle)
+                self.handle = self.run_in(self.lights_off, self.args['stay_on_for'])
         else:
+            self.log('Turning lights off')
             self.turn_off(self.args['lights'])

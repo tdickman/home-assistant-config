@@ -30,7 +30,7 @@ Closet Motion Light:
   # constrain_input_select: input_select.motion_lights,on
   sensor: binary_sensor.motion_sensor_158d00013fb601
   lights: light.closet
-  stay_on_for: 120
+  stay_on_for: 0
 
 Alarm:
   module: alarm
