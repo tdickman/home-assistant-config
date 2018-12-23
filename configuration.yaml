@@ -3,8 +3,8 @@ homeassistant:
   name: Home
   packages: !include_dir_named packages
   # Location required to calculate the time the sun rises and sets
-  latitude: 30.280
-  longitude: -97.773
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 186
   # metric for Metric, imperial for Imperial
@@ -95,10 +95,10 @@ recorder:
 media_player:
   - platform: gpmdp
     host: 192.168.1.36
-  - platform: firetv
-    name: Fire TV
-    host: 192.168.1.29
-    adbkey: "/config/adbkey"
+  # - platform: firetv
+  #   name: Fire TV
+  #   host: 192.168.1.29
+  #   adbkey: "/config/adbkey"
   # - platform: plex
 
 xiaomi_aqara:
@@ -158,7 +158,6 @@ switch:
       - light.bedroom_1
       - light.bedroom_2
       - light.bedroom_3
-      - light.bedroom_4
       - light.bathroom_1
       - light.bathroom_2
       - light.bathroom_3
@@ -172,6 +171,7 @@ switch:
     sunset_colortemp: 5000
     stop_colortemp: 1900
     mode: mired
+    interval: 300
   - platform: broadlink
     type: rm_mini
     host: 192.168.1.63
@@ -193,10 +193,6 @@ sensor:
     # - platform: fedex
     #   username: !secret fedex_username
     #   password: !secret fedex_password
-
-# Text to speech
-tts:
-  platform: google
 
 asuswrt:
   host: !secret router_host
@@ -291,11 +287,6 @@ zone:
     icon: mdi:account-multiple
 
 map:
-
-cast:
-  media_player:
-    - host: 192.168.1.68
-  #   - host: 192.168.1.134
 
 weather:
   - platform: darksky
