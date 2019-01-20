@@ -115,7 +115,7 @@ frontend:
 
 http:
   # Uncomment this to add a password (recommended!)
-  server_port: 80
+  server_port: 8123
   # Uncomment this if you are using SSL or running in Docker etc
   # base_url: home.epiccontructions.com:8123
   # ssl_certificate: /etc/letsencrypt/live/home.epicconstructions.com-0003/fullchain.pem
