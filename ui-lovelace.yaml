@@ -3,25 +3,23 @@
 resources:
   - type: js
     url: /local/plan-coordinates.js?v=1
+  - type: js
+    url: /local/monster-card.js?v=1
 title: Home
 views:
   - cards:
-      - id: b5d425fe4eec46b7848dc32120efc92c  # Automatically created id
-        entity: weather.dark_sky
+      - entity: weather.dark_sky
         type: weather-forecast
-      - id: 8c66a7aa3c0b4bf18e1ca151db2e51ec  # Automatically created id
-        entities:
+      - entities:
           - input_select.house_mode
           - input_select.presence
           - input_select.motion_lights
           - input_select.activity
         title: States
         type: glance
-      - id: 7f1371264f764207b2a32600c7edc0d8  # Automatically created id
-        entity: climate.hallway
+      - entity: climate.hallway
         type: thermostat
-      - id: 2d7444a5a69043b5968d31294f0e35f5  # Automatically created id
-        entities:
+      - entities:
           - entity: light.bedroom
             tap_action:
               action: toggle
@@ -40,8 +38,7 @@ views:
         show_state: false
         title: Light Control
         type: glance
-      - id: e899ff73d1f5468394b322fa794ab3b2  # Automatically created id
-        entities:
+      - entities:
           - entity: script.tv_power
             icon: 'mdi:power'
             name: TV Power
@@ -64,16 +61,15 @@ views:
         show_state: false
         title: Media Control
         type: glance
-      - id: c1825faa2dcd4eb4a2cb1186ed620479  # Automatically created id
-        elements:
-          - entity: light.bedroom
+      - elements:
+          - entity: light.closet
             style:
               left: 10%
               top: 10.5%
             tap_action:
               action: toggle
             type: state-icon
-          - entity: light.closet
+          - entity: light.bedroom
             style:
               left: 61%
               top: 24%
@@ -197,69 +193,66 @@ views:
             type: state-icon
         image: /local/apt_floorplan.png
         type: picture-elements
+      - entities:
+          - entity: sensor.ups
+          - entity: alarm_control_panel.ha_alarm
+        type: glance
     id: main
     title: Main
   - cards:
-      - id: 5b20b04c9a834576b119cfbc88e2b52b  # Automatically created id
-        entities:
+      - entities:
           - entity: script.tv_power
             icon: 'mdi:power'
             name: Power
-            tap_action: toggle
+            tap_action:
+              action: toggle
           - entity: script.tv_volume_up
             icon: 'mdi:chevron-up'
             name: Up
-            tap_action: toggle
+            tap_action:
+              action: toggle
           - entity: script.tv_volume_down
             icon: 'mdi:chevron-down'
             name: Down
-            tap_action: toggle
+            tap_action:
+              action: toggle
         show_name: false
         show_state: false
         title: TV
         type: glance
-      - id: fe32b87ac5fc4b5eb4a9a00e457f891e  # Automatically created id
-        entity: media_player.gpm_desktop_player
+      - entity: media_player.gpm_desktop_player
         type: media-control
     id: media
     title: Media
   - cards:
-      - id: c2ea4ff02fb14dfc9a5b6210d61d3f9a  # Automatically created id
-        entity: climate.hallway
+      - entity: climate.hallway
         type: thermostat
-      - id: fed668f37cf946418e48dcae8c82c8c6  # Automatically created id
-        entities:
+      - entities:
           - entity: sensor.temperature_158d00011003cd
           - entity: sensor.hallway_thermostat_humidity
           - entity: sensor.humidity_158d00011003cd
         show_header_toggle: false
         title: Temperatures
         type: entities
-      - id: c9fb5a0ac16541d0ac0e5720b8007160  # Automatically created id
-        camera_image: camera.home
+      - camera_image: camera.home
         entity: camera.home
-        show_state: false
-        show_name: false
+        show_info: true
         title: home
         type: picture-entity
-      - id: e7f1222bac2f4d87b758bee6ff9046e8  # Automatically created id
-        camera_image: camera.radar
+      - camera_image: camera.radar
         entity: camera.radar
-        show_state: false
-        show_name: false
+        show_info: true
+        tap_action: dialog
         title: radar
         type: picture-entity
-      - id: 0107eee09333498697d96184dd3b0d65  # Automatically created id
-        entities:
+      - entities:
           - sensor.temperature_158d000159f9f2
           - sensor.temperature_158d00011003cd
         type: history-graph
     id: climate
     title: Climate
-  - id: 3  # Automatically created id
-    cards:
-      - id: bba2c47a3d10432991585e8129f3cb49  # Automatically created id
-        entities:
+  - cards:
+      - entities:
           - light.couch_1
           - light.couch_2
           - light.hanging_light_1
@@ -270,16 +263,14 @@ views:
         show_header_toggle: true
         title: Living Room
         type: entities
-      - id: 2636242538c544f985e188c4c69dd983  # Automatically created id
-        entities:
+      - entities:
           - light.bedroom_1
           - light.bedroom_2
           - light.bedroom_3
         show_header_toggle: true
         title: Bedroom
         type: entities
-      - id: f92c1f164ba44eab9cfca29d3f894a9e  # Automatically created id
-        entities:
+      - entities:
           - light.bathroom_1
           - light.bathroom_2
           - light.bathroom_3
@@ -288,51 +279,48 @@ views:
         title: Bathroom
         type: entities
     title: Lights
-  - id: 4  # Automatically created id
-    cards:
-      - id: b993c0d3bfcf40b180ae6de3a6e4f7b1  # Automatically created id
-        entities:
-          - automation.wakeup_and_run
-          - automation.away
-          - automation.transition_home
-          - automation.crypto_price_alerts_ethereum
-          - automation.sleeping
-          - automation.netflix__play
-          - automation.transition_away
-          - automation.activity__tv
-          - automation.awake
-          - automation.intruder
-          - automation.home
-          - automation.toggle_house_mode
-          - automation.activity__normal
-          - automation.alarm_triggered_notification
-          - automation.crypto_price_alerts_bitcoin
-          - automation.netflix__pause
+  - cards:
+      - entities:
+          - entity: automation.wakeup_and_run
+          - entity: automation.away
+          - entity: automation.transition_home
+          - entity: automation.crypto_price_alerts_ethereum
+          - entity: automation.sleeping
+          - entity: automation.netflix__play
+          - entity: automation.transition_away
+          - entity: automation.activity__tv
+          - entity: automation.awake
+          - entity: automation.intruder
+          - entity: automation.home
+          - entity: automation.toggle_house_mode
+          - entity: automation.activity__normal
+          - entity: automation.alarm_triggered_notification
+          - entity: automation.crypto_price_alerts_bitcoin
+          - entity: automation.netflix__pause
+          - entity: automation.vacuum_on_away
         show_header_toggle: true
         title: Automations
         type: entities
-      - id: 126dac564f6c4a23a795f0a2363fddd1  # Automatically created id
-        entities:
-          - binary_sensor.door_window_sensor_158d00010673c9
-          - sensor.humidity_158d00011003cd
-          - light.gateway_light_f0b429cbf3e0
-          - sensor.temperature_158d000159f9f2
-          - sensor.temperature_158d00011003cd
-          - sensor.humidity_158d000159f9f2
-          - binary_sensor.motion_sensor_158d00012dae15
-          - binary_sensor.motion_sensor_158d0001535b7c
-          - binary_sensor.switch_158d00013f9a76
+      - entities:
+          - entity: binary_sensor.door_window_sensor_158d00010673c9
+          - entity: sensor.humidity_158d00011003cd
+          - entity: light.gateway_light_f0b429cbf3e0
+          - entity: sensor.temperature_158d000159f9f2
+          - entity: sensor.temperature_158d00011003cd
+          - entity: sensor.humidity_158d000159f9f2
+          - entity: binary_sensor.motion_sensor_158d00012dae15
+          - entity: binary_sensor.motion_sensor_158d0001535b7c
+          - entity: binary_sensor.switch_158d00013f9a76
+          - entity: switch.desktop_switch
         show_header_toggle: false
         title: Sensors
         type: entities
-      - id: 7aae84d109b044f0bfb728610f743800  # Automatically created id
-        entities:
+      - entities:
           - device_tracker.pixel_xl
         show_header_toggle: false
         title: People
         type: entities
-      - id: 79ad9ee7564a42bbbbac1d677312a287  # Automatically created id
-        entities:
+      - entities:
           - script.clean_vacuum
           - script.home_vacuum
           - script.max_vacuum
@@ -342,10 +330,8 @@ views:
         show_header_toggle: false
         title: Remotes
         type: entities
-      - id: e790a6d177314844859f88c46a623e63  # Automatically created id
-        entity: alarm_control_panel.ha_alarm
+      - entity: alarm_control_panel.ha_alarm
         type: alarm-panel
-      - id: 418050113d364dd18f1e7f95aaf274ce  # Automatically created id
-        entity: sensor.ups
+      - entity: sensor.ups
         type: sensor
     title: Other
