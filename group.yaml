@@ -74,6 +74,7 @@ Automations:
     - automation.activity__tv
     - automation.crypto_price_alerts_bitcoin
     - automation.crypto_price_alerts_ethereum
+    - automation.vacuum_on_away
 
 Climate:
   view: yes

@@ -296,3 +296,24 @@
   trigger:
   - event: start
     platform: homeassistant
+
+- alias: Vacuum on Away
+  trigger:
+    platform: state
+    entity_id: input_select.presence
+    to: away
+    for:
+      minutes: 50
+  condition:
+    condition: time
+    after: '09:00:00'
+    before: '17:00:00'
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: script.turn_on
+    entity_id: script.clean_vacuum
